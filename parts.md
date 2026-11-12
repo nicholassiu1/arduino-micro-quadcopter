@@ -1,5 +1,7 @@
 # Parts list
 
+> **The Google Sheet (linked in `CLAUDE.local.md`) is the source of truth.** This file is a snapshot for the public repo and may lag behind it.
+
 Prices are estimates from planning (Nov 2026); update them from the real cart and receipts.
 **Totals:** Amazon ~$239 · UIUC ~$21.70 · **~$260.70** (not counting the optional soldering iron; about $18 less if you already own a multimeter).
 

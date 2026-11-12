@@ -67,7 +67,7 @@ Link each topic to my coursework when it fits (statics, dynamics, mechanics of m
 | `PLAN.md` | Status tracker: done / next / decisions / problems log |
 | `TIMELINE.md` | Dated schedule, Nov 12 → Jan 17 |
 | `SAFETY.md` | LiPo, prop, soldering and firmware safety; staged test procedure |
-| `parts.md` | Bill of materials, where to buy, weight budget |
+| `parts.md` | Snapshot of the bill of materials and weight budget. **The Google Sheet (link in `CLAUDE.local.md`) is the source of truth**: update it first. |
 | `README.md` | Public description of the project |
 
 ## Hardware summary
