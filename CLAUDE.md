@@ -23,6 +23,7 @@ Build a sub-250 g micro brushed quadcopter (aiming for ~80 g) with a 3D-printed 
 - Commit small, focused changes with clear messages, and push at the end of a work session. Explain the git commands, since I'm learning.
 - **Public text is in my voice.** Docs, the README, issues and commit messages say "I" and "my" and never address me as "you". Keep them plain: no em or en dashes, bold only for a real warning or a named concept, no arrows or emoji as decoration. Run the humanizer skill on new public text before committing it.
 - Toolchain: **Arduino IDE** for both the Nano (quad) and the Uno (transmitter).
+- **Desktop app is my default for Claude Code.** Tell me when the terminal (`claude` in Windows PowerShell, started in this folder) is the better fit: managing Claude Code itself (`claude plugin ...`, `claude update`), one-off `claude -p` questions, commands copied from docs, or a computer without the app.
 - **End every reply with a short "Advice" section**: 1–3 tips on Claude Code or GitHub practice that relate to what we just did, since I'm new to both.
 
 ## Teach me while we build
