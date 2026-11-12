@@ -16,6 +16,14 @@ This file keeps what Issues don't: the decisions and their reasons, problems and
 - [x] Wrote TIMELINE.md and SAFETY.md (Nov 12)
 - [x] Set up the project repo: CLAUDE.md, PLAN.md, README.md, parts.md, git + GitHub (Nov 12)
 - [x] GitHub setup: MIT license, topics, labels, 7 phase milestones, issues #1–#13 (Nov 12)
+- [x] GitHub profile README live at github.com/nicholassiu1 (Nov 12). Still to do by hand: name/bio in Settings, pin the repo, profile photo
+- [x] Added teaching goals to CLAUDE.md and a Lessons log here (Nov 12)
+- [x] Downloaded the recommended software tools (Nov 12)
+- [x] Added the `/end-session` skill for the end-of-session routine (Nov 12)
+
+## Next session
+- Apply for the GitHub Student Developer Pack (add the @illinois.edu email to the existing account first)
+- Paste the Amazon cart for a check, then order (#1). This is the most urgent item.
 
 ## Decisions
 | Date | Decision | Why |
@@ -48,6 +56,9 @@ This file keeps what Issues don't: the decisions and their reasons, problems and
 | Nov 12 | Git | Git saves snapshots locally (commit); GitHub stores a copy online (push). `.gitignore` keeps private files out. |
 | Nov 12 | GitHub | Issues hold tasks, milestones group them with due dates, and `Closes #N` in a commit closes the issue automatically. |
 | Nov 12 | Claude Code | CLAUDE.md is read at the start of every session, so it's where lasting context and preferences belong. `CLAUDE.local.md` holds private notes that stay out of git. |
+| Nov 12 | GitHub | A public repo named exactly after your username shows its README on your profile page. |
+| Nov 12 | GitHub | Use one account for life with several emails on it. Add the school email for the Student Pack; keep a personal email as primary. |
+| Nov 12 | Claude Code | A routine you repeat every session belongs in a skill (`.claude/skills/<name>/SKILL.md`), run with `/<name>`. Committing it to the repo means every future session has it. |
 
 ## Open questions
 - Does UIUC policy FO-05 (DPS permission) cover indoor flight on campus? Assume yes until DPS says otherwise.
