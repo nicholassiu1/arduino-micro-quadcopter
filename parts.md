@@ -20,6 +20,18 @@ Status key: ☐ not bought · 🛒 ordered · ✅ in hand · ✔ tested
 | ☐ | Teyleten KY-023 joystick, 5-pack | 1 | $10 | [amazon.com/dp/B0CPFDKWZF](https://www.amazon.com/dp/B0CPFDKWZF) | 2 sticks: throttle/yaw + pitch/roll. |
 | ☐ | Zeee LiPo safe bag | 1 | $12 | [amazon.com/dp/B07KZQZBN2](https://www.amazon.com/dp/B07KZQZBN2) | Charge and store the batteries in it. |
 
+### Added Nov 12 after reviewing the list
+Prices here are rough guesses. The ASINs were matched to amazon.com product pages through search results.
+
+| Status | Item | Qty | Est. | Link | Notes |
+|---|---|---|---|---|---|
+| ☐ | HiLetgo AMS1117-3.3 regulator module, 10-pack (800 mA LDO) | 1 | ~$7 | [amazon.com/dp/B01HXU1NQY](https://www.amazon.com/dp/B01HXU1NQY) | **Powers the nRF24L01.** The Nano's 3V3 pin can't supply the radio's transmit spikes. Fed from the MT3608's 5 V. ~1 g. |
+| ☐ | AstroAI AM33D digital multimeter (2000 count) | 1 | ~$15–20 | [amazon.com/dp/B01ISAMUA6](https://www.amazon.com/dp/B01ISAMUA6) | Skip if you own one. DC volts, resistance, continuity beep, diode test. Required for setting the MT3608 and checking polarity and shorts. |
+| ☐ | NoCry clear safety glasses, ANSI Z87.1 | 1 | ~$12 | [amazon.com/dp/B01AWK1XAS](https://www.amazon.com/dp/B01AWK1XAS) | For any test with props on, and for soldering. Get a second pair for anyone watching. |
+| ☐ | Ginsco 580-pc 2:1 heat-shrink kit | 1 | ~$7 | [amazon.com/dp/B0H82FXY2P](https://www.amazon.com/dp/B0H82FXY2P) | Insulate the battery leads and motor joints. Includes 1.0–2.0 mm sizes for thin wire. |
+| ☐ | GRASKY 75 mm props, 1 mm hole, CW/CCW | 1 | ~$8 | [amazon.com/dp/B0CNP12BFM](https://www.amazon.com/dp/B0CNP12BFM) | **Pick the "5 sets / 20 pcs" option.** Spares for crashes. The Hobbypower 8520 shaft is listed as 1 mm, so these fit. |
+| ☐ | iFlight battery straps 10×130 mm, 10-pack | 1 | ~$8 | [amazon.com/dp/B07XL8NLLZ](https://www.amazon.com/dp/B07XL8NLLZ) | Rubberized, for 1–3S micro quads. Longer than you need; trim to fit, which also saves weight. |
+
 ## UIUC campus
 | Status | Item | Qty | Est. | Where | Notes |
 |---|---|---|---|---|---|
@@ -48,6 +60,7 @@ Fill in the "Measured" column with a kitchen scale as parts arrive.
 | Wiring + perfboard | 8–10 g | |
 | Arduino Nano | ~7 g | |
 | nRF24L01 | 2–3 g | |
+| AMS1117-3.3 module | ~1 g | |
 | MPU-6050 | ~2 g | |
 | MT3608 | ~2 g | |
 | **Total** | **~82–95 g** | |

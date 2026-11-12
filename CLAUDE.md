@@ -37,7 +37,7 @@ Arduino Nano (flight controller) · MPU-6050 IMU · nRF24L01+ radios · 4× 8520
 - **Weight is the biggest risk.** ~120–130 g total thrust → all-up weight ≤ ~80 g (thrust-to-weight 1.5–2:1).
 - The ATmega328P at 16 MHz isn't rated for 1S voltage (3.3–4.2 V), so the Nano runs from the MT3608 set to **5.0 V** (set it with a multimeter *before* connecting).
 - An Arduino pin can't drive an 8520 motor (>1 A). Each motor gets a logic-level MOSFET, a ~220 Ω gate resistor, a 10 kΩ gate pull-down and a flyback diode.
-- The nRF24L01 runs from the Nano's 3.3 V pin with a 10 µF cap across VCC/GND. The firmware must have a **radio failsafe** (no packet for 250 ms → motors off).
+- The nRF24L01 runs from an **AMS1117-3.3 regulator** fed by the 5 V rail (not the Nano's 3V3 pin, which on CH340 Nanos can't supply the radio's transmit spikes), with a 10 µF cap across VCC/GND. The firmware must have a **radio failsafe** (no packet for 250 ms → motors off).
 - Safety features required in firmware before props go on: motors off at boot, arming gesture, throttle-low check, failsafe, kill switch, tilt cutoff, low-battery warning, watchdog. See `SAFETY.md`.
 - Frame: ~120 mm diagonal motor-to-motor; press-fit motor holes ~0.2 mm oversize for 8.5 mm motors (print a test mount first); battery tray for 57×18×7.6 mm.
 - Fallback if my own flight code stalls: **MultiWii** (runs on the same chip and supports brushed motors).

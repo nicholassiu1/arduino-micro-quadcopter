@@ -28,6 +28,8 @@ Living tracker, updated as work happens. Dated schedule: `TIMELINE.md`. Parts st
 | Nov 11 | **nRF24L01 radios instead of HC-05 Bluetooth** | Changed from the TikTok build I started from. Longer range, low latency, two-way packets for the failsafe and telemetry. |
 | Nov 11 | **Boost converter to 5 V for the Nano** | An ATmega328P at 16 MHz isn't rated for 1S voltage and can brown out mid-flight. Alternative kept in reserve: a 3.3 V/8 MHz Pro Mini. |
 | Nov 11 | **MOSFET + flyback diode per motor** | An Arduino pin can't supply >1 A, and motor spikes reset the board. |
+| Nov 12 | **AMS1117-3.3 regulator for the radio** instead of the Nano's 3V3 pin | The CH340 Nano's 3V3 pin can supply very little current; the nRF24's transmit spikes cause dropped packets, the most common failure in Nano + nRF24 builds. |
+| Nov 12 | **Added a multimeter, safety glasses, heat shrink, spare props and battery straps** | Gaps found in the parts review. The multimeter and glasses are required by SAFETY.md. |
 | Nov 12 | **Arduino IDE** for the firmware | Simplest start; most Nano quad references use it. Could move to PlatformIO later if the code grows. |
 | Nov 12 | **Public GitHub repo** | Portfolio. Private links and names go in the git-ignored `CLAUDE.local.md`. |
 
