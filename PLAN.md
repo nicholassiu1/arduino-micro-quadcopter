@@ -18,7 +18,7 @@ This file keeps what Issues don't: the decisions and their reasons, problems and
 - [x] GitHub setup: MIT license, topics, labels, 7 phase milestones, issues #1–#13 (Nov 12)
 - [x] GitHub profile README live at github.com/nicholassiu1 (Nov 12). Still to do by hand: name/bio in Settings, pin the repo, profile photo
 - [x] Added teaching goals to CLAUDE.md and a Lessons log here (Nov 12)
-- [x] Downloaded the recommended software tools (Nov 12)
+- [x] Downloaded the recommended software tools, including SolidWorks (Nov 12)
 - [x] Added the `/end-session` skill for the end-of-session routine (Nov 12)
 
 ## Next session
