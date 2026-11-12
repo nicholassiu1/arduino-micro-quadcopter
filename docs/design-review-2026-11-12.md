@@ -74,7 +74,7 @@ If hover takes 6–8 A total and you use 80% of 600 mAh: 0.48 Ah ÷ 6–8 A ≈ 
 | Logic brownout from motor current | **OK** with the boost | The MT3608 keeps regulating with its input down to ~2 V, so battery sag from motor surges doesn't reach the Nano. |
 | MT3608 → Nano connection | **Trap** | It must go to the Nano's **5V** pin. Into **VIN** it would pass through the Nano's own 5 V regulator and come out at ~4 V. |
 | AMS1117-3.3 dropout from 5 V | **OK** | Headroom 5.0 − 3.3 = 1.7 V; the datasheet's max dropout is 1.3 V at full load and less at the radio's ~15 mA. |
-| nRF24 decoupling | **OK**, add a ceramic | 10 µF electrolytic **plus** a 0.1 µF ceramic (in the starter kit), both soldered right at the module's VCC/GND pins. |
+| nRF24 decoupling | **OK**, add a ceramic | 10 µF electrolytic **plus** a 0.1 µF ceramic, both soldered right at the module's VCC/GND pins. *(Corrected in the second check: the starter kit has no capacitors. See section 6.)* |
 | 470 µF cap "stops brownouts" | **Wrong reason** | Hold-up time: ΔV = I·t / C = 10 A × 1 ms / 470 µF ≈ 21 V, so the cap can't hold the voltage up for even 1 ms of sag. It absorbs fast switching spikes from the PWM edges. The boost converter is what prevents brownouts. Mount it close to the MOSFETs and motor + bus. |
 | Flyback diode placement | Note | Across each **motor's** terminals: cathode (stripe) to battery +, anode to the MOSFET drain. Put it close to the MOSFET, not out at the motor. |
 | Grounds | **Needs a plan** | ~10 A of motor current returns through the MOSFET sources to battery −. If that current flows through the same thin path as the IMU's ground, the IMU reads noise. Run a thick bare-wire ground bus from battery − to the four sources, and tap logic ground once at battery − (a **star ground**). |
@@ -151,7 +151,7 @@ Fix: model the guards as one connected ring frame, or widen to ~130 mm. Lay the 
 
 - **N1. Higher PWM frequency.** At ~490–980 Hz the coreless motors whine and draw more RMS current for the same thrust. Once the basics work, try ~4–8 kHz on Timer1/Timer2. Keep the 220 Ω gate resistor (or drop it to ~100 Ω) and check the MOSFETs stay cool.
 - **N2. Fix the 470 µF note in the Sheet**: it absorbs switching spikes; the boost converter stops brownouts (section 2). A 10–16 V low-ESR part is smaller and lighter.
-- **N3. 0.1 µF ceramic caps** across each motor's terminals cut brush noise (starter kit has them; ~0.05 g each).
+- **N3. 0.1 µF ceramic caps** across each motor's terminals cut brush noise (~0.05 g each). *(Corrected in the second check: the starter kit has none; buy them at ECE.)*
 - **N4. Soft-mount the IMU** (foam tape or rubber grommets) and set the MPU-6050's digital low-pass filter (DLPF ~42 Hz) in firmware. Motor vibration otherwise swamps the accelerometer.
 - **N5. Transmitter power.** The kit's 9 V battery lasts only a few hours through the Uno's regulator. A USB power bank is better. Add a 10 µF cap on the transmitter's nRF24 too.
 - **N6. Where is your own 3D printer?** If it's at home, you can print over break and the JIS deadline matters much less.
@@ -205,3 +205,72 @@ About **110–130 joints** in total (estimate; depends on layout).
 4. **One motor channel on scrap perfboard:** MOSFET + 220 Ω + 10 kΩ + diode + motor leads. Test it with the motor. It becomes the reference copy for the real board and lets you run the S5 MOSFET test.
 
 After each session, inspect with your phone camera zoomed in, and run a continuity check between neighboring pins with the multimeter. Write what went wrong in the Problems table.
+
+---
+
+## 6. Second check (Nov 12, separate session)
+
+A second pass over the same documents, the Google Sheet and issues #1–#16, done in a fresh session. It asked two questions: will the sequence of steps work from start to finish, and does the parts list have gaps or extras? Nothing here has been tested on hardware either.
+
+**Verdict:** the order of the stages is sound, and the first review's three blockers stand. The first review's findings were checked and are correct except for one claim (C1). This pass found two parts the plan needs but the list lacked, three items the list doesn't need, and nine places where the sequence or a document would have gone wrong.
+
+### What was checked against a source
+| Fact | Source | Result |
+|---|---|---|
+| Starter kit contents | Two third-party copies of the kit's parts list | No capacitors of any kind. 10 female-to-male jumpers. 1 breadboard plus a breadboard expansion board, 1 joystick, 5 buttons, 2 buzzers, 9 V battery, USB cable |
+| Soldering station kit (B082F1WKP9) | Third-party copy of the listing | Includes 2 helping hands, solder sucker, tweezers, 6 tips, sponge, 35 g of lead-free solder. Listed at $43.99 on Nov 11 |
+| Motor set (B076M7G24G) | Search-result text of the listings | The US listing is 8 motors with 4 CW + 4 CCW props; the same ASIN is a 4-motor set on some non-US sites. Confirm in the cart |
+| Battery (B08XZM3NG3) | Third-party copy of the listing | 25C, JST plug, 57×18×7.6 mm, ~18 g |
+| Motor thrust | Listings and buyer reviews | No independent measurement exists. "130 g for a set" and "30–32 g per motor" are seller and reviewer claims, at an unstated voltage. One reviewer recommends a craft of 35–70 g |
+| `SPI.begin()` and pin D10 | Arduino AVR core source, `libraries/SPI/src/SPI.cpp` | If D10 isn't already an output, it is written HIGH and then made an output |
+| MultiWii and nRF24 | MultiWii source (`config.h`, `Output.cpp`) | No nRF24 receiver option. On a 328P the motor pins are 9, 10, 11, 3. Brushed PWM options exist (`EXT_MOTOR_32KHZ` and others). This confirms S7 |
+| Multimeter (AM33D) | Manual excerpt | Has a DC current range up to 10 A |
+| ECE Supply stock | ECE online storeroom catalog, read Nov 12 | 10 µF 25 V: $0.34, 68 in stock. 0.1 µF 50 V ceramic: $0.51, 32 in stock. 6 in M/F jumper wires: $0.24 each |
+
+### Corrections to sections 1–5
+- **C1. The starter kit has no capacitors** (section 2 and N3 said it did). The 10 µF radio capacitors that `SAFETY.md` requires had no source at all. Fixed in the Sheet.
+- **C2. The thrust-test decision rule in B1 is too generous.** It scales from 3.7 V to 3.5 V (×0.89). One motor on a fresh battery actually sees about 3.9 V, and four motors in flight pull the same battery down to about 3.0–3.3 V (estimate, see below). Uncorrected, the test overstates in-flight thrust by roughly 25–50%.
+- **C3. S8 is now scheduled.** The safety features have an issue (#18) and a place in the timeline (Stage 0, Dec 22–23).
+
+### Why four motors see less voltage than one
+A battery behaves like an ideal voltage source with a small resistor in series (its **internal resistance**; the plug and wires add to it). Voltage lost = current × resistance, so the more current the motors draw, the lower the voltage they get.
+
+Estimate, with assumed values: cell 0.07 Ω, plug and pigtail 0.03 Ω, so about 0.10 Ω shared by all motors. One motor drawing ~2 A loses ~0.2–0.3 V. Four motors draw 7–8 A and lose ~0.7–0.8 V. From a half-used battery resting at 3.85 V, that leaves about 3.0–3.1 V at the motors at full throttle. Thrust falls roughly with voltage squared, so (3.1 / 3.9)² ≈ 0.63: the motors make about two-thirds of what a one-motor test on a fresh battery suggests. A better cell (lower internal resistance) loses less, which is why the measurement matters more than this estimate.
+
+**Corrected thrust test** (now in issue #14 and `SAFETY.md`): record four numbers, namely battery voltage at rest, voltage across the motor while it runs, amps, and grams. Repeat with a nearly flat battery (about 3.5–3.6 V at rest): the motor then sees about 3.2 V, close to the in-flight value, so little scaling is needed. Then (rest voltage − running voltage) ÷ amps gives the source resistance, and the four-motor case can be worked out from that.
+
+### New findings: parts list
+| # | Finding | Fix |
+|---|---|---|
+| P1 | No capacitors anywhere on the list for the radios (C1) | ECE: 4× 10 µF 25 V, 6× 0.1 µF 50 V ceramic. Added to the Sheet |
+| P2 | Not enough female-to-male jumpers. The nRF24L01's 2×4 header can't plug into a breadboard, so each radio needs 7; two radios need 14, and the kit has 10 | ELEGOO 120-piece jumper kit (B01EV70C78). Added to the Sheet |
+| P3 | QuadHands helping hands ($30) duplicate the 2 helping hands in the soldering station kit | Moved to Optional |
+| P4 | Brass tip cleaner ($10) duplicates the station kit's sponge | Moved to Optional |
+| P5 | Battery straps ($8): a rubber band or the printed tray does the job and is ~1.5 g lighter | Moved to Optional |
+| P6 | The MBR360G backup diodes are no longer needed | Already Optional; note updated |
+| P7 | The station costs about $44, not $30 | Price corrected |
+| P8 | Several household items are needed but listed nowhere: a small flat screwdriver for the MT3608's adjustment screw, a driver for the M2/M3 screws, a lighter for heat shrink, a knife or saw for the perfboard, foam tape, a USB wall adapter | Listed in `parts.md` under "From home" |
+| P9 | The power bus needs 22 AWG wire and none is listed | Use wire from the spare JST pigtails (20 pairs, 3 needed) |
+
+Everything else on the list is used by a step in the plan. Sheet total after the changes: about $387, down from $410.
+
+### New findings: sequence and documents
+| # | Finding | Fix |
+|---|---|---|
+| Q1 | A motor on D10 runs at full power at boot if `radio.begin()` executes before the motor pins are set LOW (source check above). The gate pull-down doesn't help, because the pin is driven | `SAFETY.md` sections 4–6; note on #15. Stage 1 now includes ten power-ups with no motor twitch |
+| Q2 | `SAFETY.md` said to unplug the LiPo before connecting USB, but the Nov 25 motor test and the Phase 4 tuning plots both need data while the battery powers the motors | Rule changed: USB and LiPo together only with props off. With props on, data comes back in the radio's acknowledgement packet (telemetry), added to #10 |
+| Q3 | The thrust test is a props-on test in Phase 0, but the staged procedure allowed props only from Stage 2 | A thrust-stand procedure with its own rules, in `SAFETY.md` section 6 |
+| Q4 | The frame was to be designed and printed (by Dec 10) before the perfboard was laid out (Dec 19–21), so the frame couldn't be designed to fit the board | Lay out the board on paper first (#17, Nov 26–27); frame CAD follows it |
+| Q5 | The MOSFET type (TO-220 or SOT-23) changes the board size, so it has to be chosen before the layout | "Weight plan" step right after the thrust test |
+| Q6 | A "land at 3.5 V under load" limit would probably trip in the first minute because of sag | Warn at ~3.5 V, land at ~3.3 V held for 2 s; check against measured sag |
+| Q7 | The joysticks are spring-centered. With a full-range throttle mapping, letting go of the stick after arming commands 50% throttle | Map the middle and below to zero throttle (`SAFETY.md` section 5, #10) |
+| Q8 | The single-axis rig needs attachment points on the frame, and its pivot line should pass through the center of mass. Both parts are printed before the quad is assembled | Rig attachment points added to #12; rig printed with pivot holes at several heights |
+| Q9 | `TIMELINE.md` and `parts.md` still described the plan from before the first review (no thrust test, no soldering practice, diodes from ECE) | Both rewritten to match the Sheet and the issues |
+
+Smaller points, now in the timeline: test five hole sizes (8.5–8.9 mm) instead of three, because printed holes come out small and the expected best fit (8.7) was at the edge of the range; check each cart item's delivery date against Nov 19; repeat the rig tuning near hover throttle, because a motor's thrust responds more strongly at high throttle (the plant gain changes with the operating point).
+
+### Not verified
+- Motor thrust, battery internal resistance and every weight are still estimates.
+- The motor count (8) and the battery plug type come from third-party text, not from the Amazon pages. Check both in the cart.
+- The starter kit's contents come from two third-party lists, not ELEGOO's own. Check the box when it arrives.
+- Shaft diameter (1.0 mm) and which motors are CW and CCW weren't confirmed. Measure with the calipers on arrival (S4).
