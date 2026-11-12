@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 450" width="680" height="450" role="img">
+<title>Quadcopter next to a US dollar bill, to scale</title>
+<desc>Top view at 1.8 px per mm. With 75 mm props the quad spans about 160 by 160 mm (6.3 by 6.3 in), about as wide as a dollar bill (156 by 66 mm).</desc>
+<rect width="680" height="450" fill="#FFFFFF"/>
+<g fill="#B4B2A9" fill-opacity="0.15" stroke="#888780" stroke-width="1" stroke-dasharray="4 3">
+<circle cx="107.6" cy="123.6" r="67.5"/>
+<circle cx="260.4" cy="123.6" r="67.5"/>
+<circle cx="107.6" cy="276.4" r="67.5"/>
+<circle cx="260.4" cy="276.4" r="67.5"/>
+</g>
+<g stroke="#5F5E5A" stroke-width="9" stroke-linecap="round">
+<line x1="107.6" y1="123.6" x2="260.4" y2="276.4"/>
+<line x1="260.4" y1="123.6" x2="107.6" y2="276.4"/>
+</g>
+<rect x="130" y="173" width="108" height="54" rx="6" fill="#D3D1C7" stroke="#5F5E5A"/>
+<rect x="132.7" y="183.8" width="102.6" height="32.4" rx="3" fill="#85B7EB" stroke="#185FA5"/>
+<g fill="#444441">
+<circle cx="107.6" cy="123.6" r="7.7"/>
+<circle cx="260.4" cy="123.6" r="7.7"/>
+<circle cx="107.6" cy="276.4" r="7.7"/>
+<circle cx="260.4" cy="276.4" r="7.7"/>
+</g>
+<rect x="358" y="140.5" width="281" height="119" rx="3" fill="#EAF3DE" stroke="#3B6D11"/>
+<rect x="368" y="150.5" width="261" height="99" rx="2" fill="none" stroke="#639922" stroke-width="0.75"/>
+<ellipse cx="498.5" cy="200" rx="30" ry="36" fill="#C0DD97" stroke="#3B6D11" stroke-width="0.75"/>
+<circle cx="398" cy="175" r="10" fill="none" stroke="#639922" stroke-width="0.75"/>
+<circle cx="599" cy="225" r="10" fill="none" stroke="#639922" stroke-width="0.75"/>
+<g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+<text x="184" y="374" font-size="14" font-weight="bold" fill="#2C2C2A">Quad with 75 mm (3 in) props</text>
+<text x="184" y="394" font-size="12" fill="#5F5E5A">6.3 × 6.3 in, 4.7 in motor to motor</text>
+<text x="498.5" y="286" font-size="14" font-weight="bold" fill="#2C2C2A">US dollar bill</text>
+<text x="498.5" y="306" font-size="12" fill="#5F5E5A">6.1 × 2.6 in</text>
+</g>
+<g stroke="#2C2C2A">
+<line x1="40" y1="425" x2="177.2" y2="425" stroke-width="1.5"/>
+<line x1="40" y1="419" x2="40" y2="431"/>
+<line x1="85.7" y1="421" x2="85.7" y2="429"/>
+<line x1="131.4" y1="421" x2="131.4" y2="429"/>
+<line x1="177.2" y1="419" x2="177.2" y2="431"/>
+</g>
+<text x="188" y="429" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#5F5E5A">3 in</text>
+<text x="640" y="429" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#888780" text-anchor="end">Planned size, frame not designed yet</text>
+</svg>
