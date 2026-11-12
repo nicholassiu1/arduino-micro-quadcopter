@@ -1,0 +1,31 @@
+# --- Private notes (Claude Code reads these locally; never publish) ---
+CLAUDE.local.md
+.claude/settings.local.json
+
+# --- Windows / OneDrive clutter ---
+Thumbs.db
+desktop.ini
+*.lnk
+
+# --- SolidWorks ---
+# Lock files SolidWorks creates while a part is open (e.g. ~$Frame.SLDPRT)
+~$*
+*.bak
+*.swbak
+# Keep .SLDPRT / .SLDASM / .SLDDRW and exported .STL files: those ARE the design.
+
+# --- Arduino / build output ---
+build/
+*.hex
+*.elf
+*.bin
+# PlatformIO, in case of a later switch
+.pio/
+
+# --- Editors ---
+.vscode/
+*.swp
+
+# --- Test data / videos (often large; keep them in Drive instead) ---
+*.mp4
+*.mov

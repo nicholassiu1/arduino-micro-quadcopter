@@ -1,0 +1,52 @@
+# Arduino micro brushed quadcopter (custom flight controller)
+
+Claude Code reads this file automatically. It holds the project context and my working preferences. Private details (links, names) are in `CLAUDE.local.md`, which isn't committed.
+
+## Project vision
+Build a sub-250 g micro brushed quadcopter (aiming for ~80 g) with a 3D-printed PETG frame I design in SolidWorks. It flies on **flight controller code I write myself**: a PID control loop on an Arduino Nano (ATmega328P), flown with a handheld transmitter I also build (Arduino Uno + joysticks + nRF24L01 radio). It's flown indoors.
+
+**Done means:** a stable, controlled indoor hover on my own firmware, documented (CAD, wiring diagram, code, video) for my portfolio, before spring semester starts (Jan 19, 2027).
+
+## About me
+- Mechanical engineering sophomore at UIUC. I already do research on robotic-arm 3D printing, so this project is deliberately *not* a robot arm.
+- **Experience:** some coding (intro class level); **new to electronics** (circuits, soldering, power) and **new to git**.
+- I have a 3D printer, plus campus printing at the Jackson Innovation Studio (JIS).
+- I'm learning SolidWorks through this project.
+- Work happens over Thanksgiving break (Nov 21–29) and winter break (Dec 19 – Jan 18). Finals take up mid-December.
+
+## How I like to work
+- **Explain what you're doing and why as you go**, especially for electronics and git, since both are new to me. Teach the concept briefly; don't just hand me commands.
+- Give direct, single-product Amazon links in `amazon.com/dp/ASIN` format, and **verify them**. Broken or wrong links frustrate me.
+- Amazon blocks AI agents, so don't browse Amazon. Check ASINs against third-party mirror listings; I'll paste my cart or screenshots.
+- Keep `PLAN.md` updated as we work: what's done, what's next, decisions (with reasons), and problems I ran into.
+- Toolchain: **Arduino IDE** for both the Nano (quad) and the Uno (transmitter).
+
+## Project files
+| File | What it is |
+|---|---|
+| `PLAN.md` | Status tracker: done / next / decisions / problems log |
+| `TIMELINE.md` | Dated schedule, Nov 12 → Jan 17 |
+| `SAFETY.md` | LiPo, prop, soldering and firmware safety; staged test procedure |
+| `parts.md` | Bill of materials, where to buy, weight budget |
+| `README.md` | Public description of the project |
+
+## Hardware summary
+Arduino Nano (flight controller) · MPU-6050 IMU · nRF24L01+ radios · 4× 8520 coreless brushed motors + 75 mm props · 1S 600 mAh LiPo · MT3608 boost to 5 V · IRLZ44N MOSFET + 1N5819 flyback diode per motor · Uno + 2 KY-023 joysticks as the transmitter. Full list in `parts.md`.
+
+## Technical constraints (remember these when writing code or advice)
+- **Weight is the biggest risk.** ~120–130 g total thrust → all-up weight ≤ ~80 g (thrust-to-weight 1.5–2:1).
+- The ATmega328P at 16 MHz isn't rated for 1S voltage (3.3–4.2 V), so the Nano runs from the MT3608 set to **5.0 V** (set it with a multimeter *before* connecting).
+- An Arduino pin can't drive an 8520 motor (>1 A). Each motor gets a logic-level MOSFET, a ~220 Ω gate resistor, a 10 kΩ gate pull-down and a flyback diode.
+- The nRF24L01 runs from the Nano's 3.3 V pin with a 10 µF cap across VCC/GND. The firmware must have a **radio failsafe** (no packet for 250 ms → motors off).
+- Safety features required in firmware before props go on: motors off at boot, arming gesture, throttle-low check, failsafe, kill switch, tilt cutoff, low-battery warning, watchdog. See `SAFETY.md`.
+- Frame: ~120 mm diagonal motor-to-motor; press-fit motor holes ~0.2 mm oversize for 8.5 mm motors (print a test mount first); battery tray for 57×18×7.6 mm.
+- Fallback if my own flight code stalls: **MultiWii** (runs on the same chip and supports brushed motors).
+
+## Rules
+- FAA: must pass the free TRUST test (on the to-do list in `PLAN.md`). Under 250 g recreational → no registration or Remote ID. Indoor flight isn't in FAA airspace. Most of Champaign-Urbana is controlled airspace.
+- UIUC policy FO-05: need permission from the Division of Public Safety before flying on campus property. Plan to fly at home over break.
+
+## Campus resources
+- **JIS, Sidney Lu MEB 0100:** metric hardware; PLA $0.03/g, PETG $0.04/g; card only; no personal filament; **closed weekends and breaks**.
+- **ECE Supply Center, ECEB 1031:** sells to students. Has wire, metric hardware, connectors. Diodes, caps, perfboard and USB cables are not confirmed in stock; check first.
+- **SolidWorks:** free via webstore.illinois.edu. Get the current-year student license (the 7/31/2026 one has expired). Windows only.
