@@ -31,12 +31,23 @@ This file keeps what Issues don't: the decisions and their reasons, problems and
 | Nov 12 | **Arduino IDE** for the firmware | Simplest start; most Nano quad references use it. Could move to PlatformIO later if the code grows. |
 | Nov 12 | **Public GitHub repo** | Portfolio. Private links and names go in the git-ignored `CLAUDE.local.md`. |
 
-## Problems & lessons
+## Problems
 *Log problems here as they come up: what happened, the cause, the fix.*
 
 | Date | Problem | Cause | Fix / lesson |
 |---|---|---|---|
 | | | | |
+
+## Lessons
+*One line per concept learned: mechanical engineering, git/GitHub, or Claude Code.*
+
+| Date | Area | Lesson |
+|---|---|---|
+| Nov 12 | ME | Thrust-to-weight of 1.5–2:1 is needed for control margin; with ~120–130 g of thrust, the quad must weigh ≤ ~80 g. |
+| Nov 12 | Electronics | A regulator's current limit matters as much as its voltage: the Nano's 3V3 pin can't handle the nRF24's transmit spikes. |
+| Nov 12 | Git | Git saves snapshots locally (commit); GitHub stores a copy online (push). `.gitignore` keeps private files out. |
+| Nov 12 | GitHub | Issues hold tasks, milestones group them with due dates, and `Closes #N` in a commit closes the issue automatically. |
+| Nov 12 | Claude Code | CLAUDE.md is read at the start of every session, so it's where lasting context and preferences belong. `CLAUDE.local.md` holds private notes that stay out of git. |
 
 ## Open questions
 - Does UIUC policy FO-05 (DPS permission) cover indoor flight on campus? Assume yes until DPS says otherwise.

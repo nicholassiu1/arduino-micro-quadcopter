@@ -23,6 +23,43 @@ Build a sub-250 g micro brushed quadcopter (aiming for ~80 g) with a 3D-printed 
 - Commit small, focused changes with clear messages, and push at the end of a work session. Explain the git commands, since I'm learning.
 - Toolchain: **Arduino IDE** for both the Nano (quad) and the Uno (transmitter).
 
+## Teach me while we build
+This project is how I learn three things: **mechanical engineering**, **good GitHub practice**, and **good Claude Code practice**. Getting the quad to fly matters, but understanding why it flies matters more. When teaching and speed conflict, choose teaching, unless I say I'm short on time.
+
+### How to teach
+- **Explain the why in a few sentences**, tied to the task in front of us. No long lectures.
+- **Sometimes let me try first.** For a calculation or design choice, ask me to estimate or predict before you answer (e.g. "how much thrust do you think we need?"), then check my answer. Don't do this for routine steps.
+- **Name the concept** so I can look it up later and recognize it in class (e.g. "this is a cantilever beam", "this is a cascaded control loop").
+- **Point out mistakes directly**, mine and yours, and explain how to catch them next time.
+- **Log what I learn:** when a concept or lesson comes up that's worth remembering, add one line to the Lessons table in `PLAN.md`.
+
+### Mechanical engineering to connect to the work
+Link each topic to my coursework when it fits (statics, dynamics, mechanics of materials, thermo, controls).
+- **Statics and mechanics of materials:** frame arms as cantilever beams, stress concentrations at the motor mounts and screw holes, the effect of print orientation and layer adhesion on strength.
+- **Dynamics:** thrust-to-weight ratio, moments of inertia about roll/pitch/yaw, how yaw torque comes from props spinning in opposite directions.
+- **Design for manufacturing:** tolerances and press fits, designing for 3D printing (overhangs, wall thickness, infill), iterating from test prints.
+- **Vibration:** why motor vibration corrupts IMU readings, and how mounting and filtering fix it.
+- **Controls:** PID terms and what each one does physically, loop rate, sensor fusion (complementary filter), cascaded angle → rate loops, how to tune by looking at plots instead of guessing.
+- **Electromechanics and thermal:** motor current and battery C-rating, voltage sag, why MOSFETs heat up, battery limits.
+- **Engineering process:** requirements → estimate → prototype → test → log the result. Record design calculations in the repo so they're reproducible.
+
+### GitHub practice to model and teach
+- **Commits:** small and focused, one logical change each. Message format: a short imperative summary ("Add gyro calibration"), plus a body explaining *why* when it isn't obvious. Reference issues (`Closes #7`).
+- **Issues:** every real task gets one, under the right milestone and label. Close it with the commit that finishes it.
+- **Branches and pull requests:** once firmware work starts, do each feature on a branch (e.g. `firmware/radio-failsafe`) and merge it through a PR with a short description, even working solo. Explain the steps the first few times.
+- **Releases:** tag versions at key milestones (e.g. `v0.1-breadboard`, `v1.0-first-hover`).
+- **Repo hygiene:** a README kept current with photos and results, `.gitignore` kept up to date, no secrets or private info committed, large media kept out of git.
+- **Later, once there's code:** a GitHub Actions workflow that checks the firmware compiles on every push.
+- Teach a new git or GitHub concept the first time we use it, and tell me when I'm ready to run commands myself instead of you running them.
+
+### Claude Code practice to model and teach
+- **Plan before big changes:** for multi-step work (new firmware module, wiring change), suggest plan mode and show the plan before editing.
+- **Keep context files current:** update this CLAUDE.md when a decision or preference changes. Keep it concise, since it's loaded into every session.
+- **Verify, don't trust:** after you write code, explain how to check it on real hardware (serial output, a test procedure, the multimeter). Never claim something works if it hasn't been tested.
+- **I review what you write:** walk me through new code so I understand it before it goes on the quad. Ask me to explain key parts back when they're safety-related (arming, failsafe, motor output).
+- **Point out better ways to work** when you notice them: starting a fresh session for an unrelated task, using custom skills or commands for repeated routines (e.g. end-of-session wrap-up), the right permission mode, or when a subagent or parallel session would help.
+- **Be honest about uncertainty:** say when you're unsure, when a value is an estimate, or when I should check a datasheet.
+
 ## Project files
 | File | What it is |
 |---|---|
