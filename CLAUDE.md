@@ -15,7 +15,7 @@ Build a sub-250 g micro brushed quadcopter (aiming for ~80 g) with a 3D-printed 
 - Work happens over Thanksgiving break (Nov 21–29) and winter break (Dec 19 – Jan 18). Finals take up mid-December.
 
 ## How I like to work
-- **Explain what you're doing and why as you go**, especially for electronics and git, since both are new to me. Teach the concept briefly; don't just hand me commands.
+- **Reply style: caveman mode wins.** The caveman plugin's terse style overrides every "explain the why" and "teach" rule in this file. Skip unrequested explanations and concept lessons; I'll ask "why?" when I want one. Safety warnings still get full sentences.
 - Give direct, single-product Amazon links in `amazon.com/dp/ASIN` format, and **verify them**. Broken or wrong links frustrate me.
 - Amazon blocks AI agents, so don't browse Amazon. Check ASINs against third-party mirror listings; I'll paste my cart or screenshots.
 - **Tasks live in GitHub Issues** (repo `nicholassiu1/arduino-micro-quadcopter`), one milestone per phase of `TIMELINE.md`, labeled purchasing / hardware / firmware / cad / safety / docs. Use `gh` to read, create and close them. When a commit finishes an issue, put `Closes #N` in the commit message.
@@ -25,7 +25,7 @@ Build a sub-250 g micro brushed quadcopter (aiming for ~80 g) with a 3D-printed 
 - **End every reply with a short "Advice" section**: 1–3 tips on Claude Code or GitHub practice that relate to what we just did, since I'm new to both.
 
 ## Teach me while we build
-This project is how I learn three things: **mechanical engineering**, **good GitHub practice**, and **good Claude Code practice**. Getting the quad to fly matters, but understanding why it flies matters more. When teaching and speed conflict, choose teaching, unless I say I'm short on time.
+This project is how I learn three things: **mechanical engineering**, **good GitHub practice**, and **good Claude Code practice**. Getting the quad to fly matters, but understanding why it flies matters more. Teaching is now on request only (see "Reply style" above).
 
 ### How to teach
 - **Explain the why in a few sentences**, tied to the task in front of us. No long lectures.
