@@ -22,11 +22,12 @@ This file keeps what Issues don't: the decisions and their reasons, problems and
 - [x] Added the `/end-session` skill for the end-of-session routine (Nov 12)
 - [x] Checked the parts list against the ECE Supply Center catalog and updated the Google Sheet (Nov 12)
 - [x] Independent design review: `docs/design-review-2026-11-12.md`, 3 blockers; Sheet updated with tools and lighter diodes; issues #14–#16 created (Nov 12)
+- [x] Second independent check of the materials and build sequence (section 6 of the design review): Sheet corrected (capacitors and jumper wires added, three redundant items made optional); `TIMELINE.md`, `SAFETY.md` and `parts.md` updated; issues #17–#19 created (Nov 12)
 
 ## Next session
-- Do a second independent check of the materials and build sequence in a fresh session (Fable), starting from `docs/design-review-2026-11-12.md` and the Google Sheet.
-- Paste the Amazon cart for a title check against the Sheet, then order (#1). Most urgent: ECE run and soldering start depend on it.
-- Measure motor thrust as soon as the motors arrive (#14), before the frame CAD.
+- Paste the Amazon cart for a title check against the Sheet, then order (#1). In the cart, confirm the motor listing says (8) motors, the battery plug is JST-RCY, and each delivery date is before Nov 19 (or ship it home).
+- ECE Supply run Mon Nov 16 (#6): open Mon–Fri, 9–noon and 1–3:30. The list now includes 10 µF and 0.1 µF capacitors.
+- Measure motor thrust as soon as the motors arrive (#14), recording the voltage across the motor, before the frame CAD.
 
 ## Decisions
 | Date | Decision | Why |
@@ -42,6 +43,9 @@ This file keeps what Issues don't: the decisions and their reasons, problems and
 | Nov 12 | **Arduino IDE** for the firmware | Simplest start; most Nano quad references use it. Could move to PlatformIO later if the code grows. |
 | Nov 12 | **Public GitHub repo** | Portfolio. Private links and names go in the git-ignored `CLAUDE.local.md`. |
 | Nov 12 | **The Google Sheet is the source of truth for the parts list**; `parts.md` is a snapshot | It's where I actually look when shopping. Keeping two editable copies means they drift; update the Sheet first, then refresh `parts.md` occasionally. |
+| Nov 12 | **Helping hands, brass tip cleaner and battery straps moved to Optional** (Claude's recommendation in the second check; reverse it in the Sheet if I disagree) | The soldering station kit already includes helping hands and a sponge. A rubber band holds the battery and weighs less than a strap. Saves about $48. |
+| Nov 12 | **USB and LiPo together only with props off; with props on, data comes back over the radio** | An upload resets the Nano, and a USB cable on a tilting rig can reach the props. Sending data back in the radio's acknowledgement packet keeps the rule simple. |
+| Nov 12 | **Low-battery limits: warn at ~3.5 V, land at ~3.3 V under load**, to be checked against measured sag | A single 3.5 V "land" limit would probably trip in the first minute, because four motors pull the voltage down 0.3–0.6 V (estimate). |
 
 ## Problems
 *Log problems here as they come up: what happened, the cause, the fix.*
@@ -50,6 +54,9 @@ This file keeps what Issues don't: the decisions and their reasons, problems and
 |---|---|---|---|
 | Nov 12 | 1N5819 out of stock at ECE; I swapped in the MBR360G, which the review flagged as too heavy | Checked availability but not weight | For every part swap, check weight and fit, not just function. 1N5819 now comes from Amazon; MBR360G is a backup |
 | Nov 12 | Design review: estimated thrust-to-weight only ~1.0–1.3 | The weight budget left out props and guards; motor thrust is an unverified listing figure | Measure thrust first (#14); set per-subsystem weight limits |
+| Nov 12 | The plan counted on capacitors and enough jumper wires from the starter kit, but the kit has no capacitors and only 10 female-to-male jumpers | Kit contents were assumed, not read from the parts list | Read the packing list of any kit before counting on it. Capacitors added to the ECE run; a jumper kit added to the Amazon order |
+| Nov 12 | The thrust test as first written would overstate in-flight thrust by roughly 25–50% | One motor on a fresh battery sees about 3.9 V; four motors in flight pull the same battery down to about 3.0–3.3 V (estimate) | Record the voltage across the motor during the test and scale the result to the in-flight voltage (#14) |
+| Nov 12 | `TIMELINE.md` still described the plan from before the first design review | The review's fixes went into issues and the Sheet, but not the timeline | When a review changes the plan, update every document that states the plan, in the same session |
 
 ## Lessons
 *One line per concept learned: mechanical engineering, git/GitHub, or Claude Code.*
@@ -67,10 +74,19 @@ This file keeps what Issues don't: the decisions and their reasons, problems and
 | Nov 12 | Electronics | A MOSFET's part number matters: IRF520/IRF540 need ~10 V on the gate to fully turn on; a *logic-level* part (IRLZ44N, the "L") turns on fully from a 5 V Arduino pin. A half-on MOSFET gets hot. |
 | Nov 12 | Process | Keep one source of truth for any list; a second editable copy will drift out of sync. |
 | Nov 12 | Claude Code | Context is a budget: keep CLAUDE.md short (specialized routines go in skills), turn off unused connectors, and send noisy work (serial dumps, compiler logs, long reviews) to a subagent or separate session that returns a summary. |
+| Nov 12 | Electronics | A battery acts like an ideal voltage source with a small resistor in series (its **internal resistance**; the model is a **Thevenin equivalent**). More current means more voltage lost inside the battery, so four motors see less voltage than one motor does. |
+| Nov 12 | Electronics | Some pins have a second job. D10 is the SPI "slave select" pin, and starting the radio drives it HIGH, so motor pins must be set LOW first. Check a pin's other functions before giving it a job. |
+| Nov 12 | Process | Find the **critical path**: the chain of tasks where each one waits on the one before (thrust test → weight plan → board layout → frame CAD → print). A delay anywhere on it delays the end date. |
+| Nov 12 | ME | Bracket a tolerance test: print hole sizes on both sides of the expected best fit, because printed holes come out 0.1–0.3 mm smaller than drawn. |
+| Nov 12 | Claude Code | A second review in a fresh session catches different things than the first. Ask the reviewer to check facts against sources (listings, datasheets, source code) instead of trusting memory, its own included. |
 
 ## Open questions
 - Does UIUC policy FO-05 (DPS permission) cover indoor flight on campus? Assume yes until DPS says otherwise.
-- Is there a documented Arduino Nano brushed-quad build to use as a wiring/PID reference? Compare it against `parts.md`.
+- Is there a documented Arduino Nano brushed-quad build to use as a wiring/PID reference? Compare it against `parts.md`. Leads found Nov 12, not yet vetted: the `execuc/multwii-brushed-nrf24l01` fork on GitHub (its author calls it not fully tested), iforce2d's nRF24 radio-control thread on the Arduino forum (a second Arduino turns nRF24 packets into a PPM signal for MultiWii), and an Instructables "Arduino Mini Quadcopter With NRF24L01" build on MultiWii 2.3. See #19.
+- Is my own 3D printer at school or at home? If it's at home, the Dec 10 print deadline matters much less, because a wrong frame can be reprinted over break.
+- How long does a JIS print take from submitting to pickup? The Nov 16–18 coupon and the Dec 3–9 frame prints both depend on it.
+- MOSFETs: stay with the TO-220 IRLZ44N or switch to SOT-23 parts (about 6–7 g lighter, harder to solder)? Decide at the weight plan, after the thrust test.
+- Throttle stick: the joysticks are spring-centered. Planned mapping is middle and below = zero throttle, so letting go cuts power. Confirm when writing the radio code (#10).
 
 ## SolidWorks learning order
 1. Motor mount (sketch, extrude, cut, dimensions)
