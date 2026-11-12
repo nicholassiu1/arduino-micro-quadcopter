@@ -22,6 +22,7 @@ Build a sub-250 g micro brushed quadcopter (aiming for ~80 g) with a 3D-printed 
 - Keep `PLAN.md` updated with decisions (with reasons), problems I ran into, and open questions.
 - Commit small, focused changes with clear messages, and push at the end of a work session. Explain the git commands, since I'm learning.
 - Toolchain: **Arduino IDE** for both the Nano (quad) and the Uno (transmitter).
+- **End every reply with a short "Advice" section**: 1–3 tips on Claude Code or GitHub practice that relate to what we just did, since I'm new to both.
 
 ## Teach me while we build
 This project is how I learn three things: **mechanical engineering**, **good GitHub practice**, and **good Claude Code practice**. Getting the quad to fly matters, but understanding why it flies matters more. When teaching and speed conflict, choose teaching, unless I say I'm short on time.
