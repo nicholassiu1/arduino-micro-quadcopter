@@ -31,5 +31,11 @@ Target all-up weight is about 80 g, for a thrust-to-weight ratio of about 1.5–
 ## Safety
 It's flown indoors only, with prop guards and a staged test procedure: bench, then props off, then a single-axis test rig, then tethered, then free hover. The aircraft is under 250 g and flown for recreation by a TRUST-certified pilot (FAA's free recreational safety test). See [SAFETY.md](SAFETY.md).
 
+## Progress
+Work is tracked in [Issues](../../issues) and [Milestones](../../milestones), one milestone per build phase.
+
+## License
+[MIT](LICENSE)
+
 ## About
 A personal project by a mechanical engineering student at the University of Illinois Urbana-Champaign, built to learn embedded control, electronics and CAD.

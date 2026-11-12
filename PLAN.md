@@ -4,20 +4,18 @@ Living tracker, updated as work happens. Dated schedule: `TIMELINE.md`. Parts st
 
 **Current phase:** Phase 0, before Thanksgiving (Nov 12–20). Get every part in hand and smoke-test it.
 
-## Next up
-- [ ] Check the Amazon cart (paste it to Claude), then **place the order** (target: Nov 12)
-- [ ] Decide on the soldering iron (needed at home over break)
-- [ ] Install SolidWorks (current 2026–27 student license)
-- [ ] Take the FAA TRUST test; save the certificate
-- [ ] SolidWorks lesson 1: motor-mount test piece with 8.5 / 8.6 / 8.7 mm holes
-- [ ] ECE Supply + JIS run (Nov 16–18): diodes, caps, wire, perfboard, Mini-B cable, screws; print the test mounts
-- [ ] Smoke-test each part as it arrives (Blink, MT3608 → 5.0 V, MPU-6050 readings, motors)
-- [ ] Pack the kit to take home by Nov 20
+## Tasks
+Tasks are tracked as **GitHub Issues**, grouped into one milestone per phase:
+- [Open issues](https://github.com/nicholassiu1/arduino-micro-quadcopter/issues)
+- [Milestones and progress](https://github.com/nicholassiu1/arduino-micro-quadcopter/milestones)
+
+This file keeps what Issues don't: the decisions and their reasons, problems and lessons, and open questions.
 
 ## Done
 - [x] Chose the project and parts list (Nov 11–12, planning session)
 - [x] Wrote TIMELINE.md and SAFETY.md (Nov 12)
 - [x] Set up the project repo: CLAUDE.md, PLAN.md, README.md, parts.md, git + GitHub (Nov 12)
+- [x] GitHub setup: MIT license, topics, labels, 7 phase milestones, issues #1–#13 (Nov 12)
 
 ## Decisions
 | Date | Decision | Why |

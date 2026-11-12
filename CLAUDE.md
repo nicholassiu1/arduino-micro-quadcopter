@@ -18,7 +18,9 @@ Build a sub-250 g micro brushed quadcopter (aiming for ~80 g) with a 3D-printed 
 - **Explain what you're doing and why as you go**, especially for electronics and git, since both are new to me. Teach the concept briefly; don't just hand me commands.
 - Give direct, single-product Amazon links in `amazon.com/dp/ASIN` format, and **verify them**. Broken or wrong links frustrate me.
 - Amazon blocks AI agents, so don't browse Amazon. Check ASINs against third-party mirror listings; I'll paste my cart or screenshots.
-- Keep `PLAN.md` updated as we work: what's done, what's next, decisions (with reasons), and problems I ran into.
+- **Tasks live in GitHub Issues** (repo `nicholassiu1/arduino-micro-quadcopter`), one milestone per phase of `TIMELINE.md`, labeled purchasing / hardware / firmware / cad / safety / docs. Use `gh` to read, create and close them. When a commit finishes an issue, put `Closes #N` in the commit message.
+- Keep `PLAN.md` updated with decisions (with reasons), problems I ran into, and open questions.
+- Commit small, focused changes with clear messages, and push at the end of a work session. Explain the git commands, since I'm learning.
 - Toolchain: **Arduino IDE** for both the Nano (quad) and the Uno (transmitter).
 
 ## Project files
