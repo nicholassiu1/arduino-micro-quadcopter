@@ -20,10 +20,13 @@ This file keeps what Issues don't: the decisions and their reasons, problems and
 - [x] Added teaching goals to CLAUDE.md and a Lessons log here (Nov 12)
 - [x] Downloaded the recommended software tools, including SolidWorks (Nov 12)
 - [x] Added the `/end-session` skill for the end-of-session routine (Nov 12)
+- [x] Checked the parts list against the ECE Supply Center catalog and updated the Google Sheet (Nov 12)
+- [x] Independent design review: `docs/design-review-2026-11-12.md`, 3 blockers; Sheet updated with tools and lighter diodes; issues #14–#16 created (Nov 12)
 
 ## Next session
-- Apply for the GitHub Student Developer Pack (add the @illinois.edu email to the existing account first)
-- Paste the Amazon cart for a check, then order (#1). This is the most urgent item.
+- Do a second independent check of the materials and build sequence in a fresh session (Fable), starting from `docs/design-review-2026-11-12.md` and the Google Sheet.
+- Paste the Amazon cart for a title check against the Sheet, then order (#1). Most urgent: ECE run and soldering start depend on it.
+- Measure motor thrust as soon as the motors arrive (#14), before the frame CAD.
 
 ## Decisions
 | Date | Decision | Why |
@@ -38,13 +41,15 @@ This file keeps what Issues don't: the decisions and their reasons, problems and
 | Nov 12 | **Added a multimeter, safety glasses, heat shrink, spare props and battery straps** | Gaps found in the parts review. The multimeter and glasses are required by SAFETY.md. |
 | Nov 12 | **Arduino IDE** for the firmware | Simplest start; most Nano quad references use it. Could move to PlatformIO later if the code grows. |
 | Nov 12 | **Public GitHub repo** | Portfolio. Private links and names go in the git-ignored `CLAUDE.local.md`. |
+| Nov 12 | **The Google Sheet is the source of truth for the parts list**; `parts.md` is a snapshot | It's where I actually look when shopping. Keeping two editable copies means they drift; update the Sheet first, then refresh `parts.md` occasionally. |
 
 ## Problems
 *Log problems here as they come up: what happened, the cause, the fix.*
 
 | Date | Problem | Cause | Fix / lesson |
 |---|---|---|---|
-| | | | |
+| Nov 12 | 1N5819 out of stock at ECE; I swapped in the MBR360G, which the review flagged as too heavy | Checked availability but not weight | For every part swap, check weight and fit, not just function. 1N5819 now comes from Amazon; MBR360G is a backup |
+| Nov 12 | Design review: estimated thrust-to-weight only ~1.0–1.3 | The weight budget left out props and guards; motor thrust is an unverified listing figure | Measure thrust first (#14); set per-subsystem weight limits |
 
 ## Lessons
 *One line per concept learned: mechanical engineering, git/GitHub, or Claude Code.*
@@ -59,6 +64,9 @@ This file keeps what Issues don't: the decisions and their reasons, problems and
 | Nov 12 | GitHub | A public repo named exactly after your username shows its README on your profile page. |
 | Nov 12 | GitHub | Use one account for life with several emails on it. Add the school email for the Student Pack; keep a personal email as primary. |
 | Nov 12 | Claude Code | A routine you repeat every session belongs in a skill (`.claude/skills/<name>/SKILL.md`), run with `/<name>`. Committing it to the repo means every future session has it. |
+| Nov 12 | Electronics | A MOSFET's part number matters: IRF520/IRF540 need ~10 V on the gate to fully turn on; a *logic-level* part (IRLZ44N, the "L") turns on fully from a 5 V Arduino pin. A half-on MOSFET gets hot. |
+| Nov 12 | Process | Keep one source of truth for any list; a second editable copy will drift out of sync. |
+| Nov 12 | Claude Code | Context is a budget: keep CLAUDE.md short (specialized routines go in skills), turn off unused connectors, and send noisy work (serial dumps, compiler logs, long reviews) to a subagent or separate session that returns a summary. |
 
 ## Open questions
 - Does UIUC policy FO-05 (DPS permission) cover indoor flight on campus? Assume yes until DPS says otherwise.
