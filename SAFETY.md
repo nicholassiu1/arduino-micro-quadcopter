@@ -3,7 +3,7 @@
 This build has four kinds of hazard: **LiPo batteries** (fire), **spinning props** (cuts, eye injuries), **soldering** (burns, fumes), and **your own firmware** (a bug can start the motors when you don't expect it). The test procedure at the end works up through them in stages, so a mistake happens with as little energy present as possible.
 
 **Three rules that prevent most accidents:**
-1. **Props stay off** until the test stage says otherwise.
+1. **Props stay off** until the test stage says otherwise. The one early exception is the thrust-stand test, which has its own rules in section 6.
 2. **The battery stays unplugged** whenever your hands are on the quad, and whenever you upload code.
 3. **Never leave a battery charging unattended.**
 
@@ -18,8 +18,11 @@ Your batteries are 1S (one cell), 3.7 V, 600 mAh, about 2.2 Wh each. That's smal
 |---|---|
 | 4.20 V | Fully charged. Never charge above this. |
 | ~3.80 V | **Storage charge.** Leave cells here if they won't be used for more than a few days. |
-| 3.50 V (under load) | **Land.** Your firmware should warn or land at this voltage. |
+| ~3.5 V (under load) | **Warn.** The firmware blinks an LED or sends a flag back. |
+| ~3.3 V (under load, for 2 s) | **Land.** Starting value; check it against your own measurement (see below). |
 | 3.0 V (resting) | Damaged. Below this the cell is unsafe to recharge: retire it. |
+
+"Under load" matters. While the motors run, the battery reads lower than it does at rest. This is **voltage sag**, caused by the battery's internal resistance. With four motors on a cell this small, expect a drop of roughly 0.3–0.6 V (an estimate; measure it in the thrust test). A single 3.5 V "land" limit would probably trip within the first minute of a flight. To check the two numbers above: after landing at the "land" voltage, the battery should rest at about 3.7 V or higher (roughly 20% left). If it rests lower, raise the limit.
 
 ### Charging
 - Charge **only with the included 1S USB charger**, **inside the LiPo bag**, on a non-flammable surface (tile, concrete, a metal tray). Don't charge on a bed, carpet or desk clutter.
@@ -34,6 +37,7 @@ Retire the cell if it's **puffy or swollen**, dented, punctured, has split wrap 
 - **Check polarity before you plug in.** JST pigtails and cheap batteries don't always use the same red/black convention. Measure with the multimeter: + on red. A reversed battery will destroy the boost converter and possibly the Nano.
 - Cut and solder one battery lead at a time so the two wires can never touch. Cover every exposed joint with heat-shrink.
 - Never let bare leads touch each other or metal (keys, tweezers, the multimeter probes across both pins).
+- **Multimeter leads:** the red lead goes in the V socket to measure voltage. In the 10 A socket the meter is almost a plain wire, so touching the probes across a battery shorts it. Move the lead back to the V socket as soon as a current measurement is done.
 
 ### Storage and transport
 - Store the cells in the LiPo bag at storage charge, away from heat and direct sun.
@@ -82,10 +86,11 @@ Discharge a dead or damaged cell completely (for example, through a resistor or 
 - **Set the MT3608 to 5.0 V with the multimeter BEFORE connecting it to the Nano.** These boards can output far more than 5 V and will kill a Nano instantly.
 - After soldering and **before the first power-up**: check with the multimeter for shorts between battery + and −, and between 5 V and GND. Look over every joint for solder bridges.
 - The first time you power up, use the multimeter and watch for heat, smoke or smell. Unplug immediately if you see any.
-- **Unplug the LiPo before connecting USB.** That way the motors can't spin during an upload, and the USB and boost converter supplies never fight each other.
+- **USB and the LiPo together only with props off.** An upload resets the Nano, so always unplug the LiPo before uploading. With props off (Stage 1 and the breadboard motor test) USB may stay connected for serial output. With props on, no USB cable at all: the quad sends its data back over the radio.
 - Each MOSFET gate needs its **10 kΩ pull-down**. Without it, motors can twitch on during reset or upload, while the Nano's pins are floating.
+- **Set every motor pin LOW before the radio starts.** Pin D10 is the SPI "slave select" pin, and `SPI.begin()` (which `radio.begin()` calls) drives it HIGH unless it is already an output. If a motor is on D10 and the radio starts first, that motor runs at full power until your code writes the pin. The pull-down can't stop this, because the pin is being driven, not floating.
 - Every motor needs its **flyback diode**. Without it, voltage spikes can reset the Nano mid-flight.
-- Put the 10 µF cap across the radio's power pins and the 470 µF across the battery input. Brownouts make the quad behave unpredictably.
+- Put a 10 µF and a 0.1 µF cap across each radio's power pins, as close to the module as you can. Put the 470 µF cap across the motor power bus, close to the MOSFETs: it absorbs the fast switching spikes. It can't hold the voltage up through battery sag; the boost converter is what keeps the Nano from browning out.
 
 ---
 
@@ -95,13 +100,13 @@ These belong in your code before Stage 2 (section 6). Test each one with the pro
 
 | Feature | Behavior |
 |---|---|
-| **Motors off at boot** | Every motor output is set to 0 on the first line of `setup()`. |
+| **Motors off at boot** | Every motor pin is set to output and driven LOW at the very start of `setup()`, before `radio.begin()` (see section 4). |
 | **Arming** | The motors start only after a deliberate gesture: throttle at minimum + yaw held fully right for 1 s, for example. The quad boots **disarmed**. |
-| **Throttle-low check** | Refuse to arm unless the throttle is at minimum. |
+| **Throttle-low check** | Refuse to arm unless the throttle is at minimum. The joysticks are spring-centered, so the throttle stick rests in the middle: map the middle and everything below it to zero throttle. Otherwise letting go of the stick after arming commands 50% throttle. |
 | **Radio failsafe** | No valid packet for 250 ms → motors off and disarm. Test by turning off the transmitter. |
 | **Kill switch** | A button on the transmitter disarms immediately, no matter what. |
 | **Tilt cutoff** | Roll or pitch past ~60° → disarm. This stops a crashed quad from flailing on the floor. |
-| **Low battery** | Under ~3.5 V while flying → warn (blink an LED or send a flag back) and limit throttle. |
+| **Low battery** | Under ~3.5 V while flying → warn (blink an LED or send a flag back). Under ~3.3 V for 2 s → lower the throttle limit gradually so the quad lands. See the voltage table in section 1. |
 | **Watchdog** | Enable the ATmega's watchdog timer so a hang resets the board, which then comes up disarmed. |
 
 ---
@@ -110,19 +115,30 @@ These belong in your code before Stage 2 (section 6). Test each one with the pro
 
 Move to the next stage only when the current one passes all its checks. If something surprising happens, **go back a stage.**
 
+### Thrust-stand test (Phase 0: one motor, no Arduino)
+This is the only props-on test before Stage 2. It's allowed early because no firmware is involved and the motor is held down.
+- Safety glasses on. Press one motor into the test coupon and mount it **upside down** at the end of an arm, so the prop blows air up and pushes the stand down onto the scale. Keep the prop at least 10 cm above the scale. Tape or clamp the stand so it can't tip or walk.
+- Solder or twist the motor leads to a JST pigtail and insulate every joint. Start and stop the motor only by plugging and unplugging the battery connector, never by touching bare wires together.
+- Keep hands, hair, sleeves and cables out of the plane of the prop. Stand to the side, not in line with the blades.
+- Run for about 10 seconds at a time, then let the motor cool for a minute.
+- For the current reading the multimeter goes in series on its 10 A socket. Move the red lead back to the V socket straight afterwards (see section 1, Wiring).
+- **Record:** battery voltage at rest, voltage across the motor while it runs, amps, and grams.
+
 ### Stage 0: Bench, no motors
 - Parts are powered from USB only. Check the IMU readings, the radio packets, the failsafe and the arming logic over serial.
 - **Pass:** every feature in section 5 works with the motors unplugged.
 
 ### Stage 1: Motors, props off
-- LiPo connected, props off, quad held down or clamped.
+- LiPo connected, props off, quad held down or clamped. USB may stay connected at this stage because the props are off; unplug the LiPo before every upload.
+- Plug the battery in ten times and watch the motors. None may twitch at power-up.
 - Confirm motor order, spin direction, and that roll/pitch/yaw speed up the correct motors. Test the failsafe, kill switch and tilt cutoff with the motors running.
-- **Pass:** every motor behaves correctly; the failsafe and kill switch stop all motors immediately.
+- **Pass:** every motor behaves correctly; no motor moves at power-up; the failsafe and kill switch stop all motors immediately.
 
 ### Stage 2: Single-axis test rig, props on
-- Safety glasses on. The quad is mounted on the rig so it can tilt in only one axis.
-- Tune the rate PID loop with low throttle limits in code (cap it at ~50%).
-- **Pass:** the quad holds level on the rig and recovers from a gentle push without oscillating.
+- Safety glasses on. The quad is mounted on the rig so it can tilt in only one axis. Clamp or weigh the rig down.
+- No USB cable from this stage on. Read the data the quad sends back over the radio.
+- Tune the rate PID loop with low throttle limits in code (cap it at ~50%). Before moving on, raise the cap and repeat the test near your estimated hover throttle.
+- **Pass:** the quad holds level on the rig and recovers from a gentle push without oscillating, at low throttle and near hover throttle.
 
 ### Stage 3: Tethered hover
 - Prop guards on, safety glasses on. Tie the quad loosely to something heavy with ~30 cm of string, or use a fishing-line tether on each corner, so it can lift a little but can't fly into you.
