@@ -24,6 +24,7 @@ This file holds what the issues don't: decisions and the reasons for them, probl
 - [x] Independent design review: `docs/design-review-2026-11-12.md`, 3 blockers; Sheet updated with tools and lighter diodes; issues #14-#16 created (Nov 12)
 - [x] Second independent check of the materials and build sequence (section 6 of the design review): Sheet corrected (capacitors and jumper wires added, three redundant items made optional); `TIMELINE.md`, `SAFETY.md` and `parts.md` updated; issues #17-#19 created (Nov 12)
 - [x] Edited the docs, issues and repo description with the humanizer skill: first person, plainer formatting (Nov 12)
+- [x] Tidied the public repo: personal preferences moved from CLAUDE.md to CLAUDE.local.md, duplicate skill removed, Wiki and Projects turned off, README image and lessons added, `docs/design-calcs.md` and a thrust-test CSV started (Nov 12)
 
 ## Next session
 - Paste the Amazon cart for a title check against the Sheet, then order (#1). In the cart, confirm the motor listing says (8) motors, the battery plug is JST-RCY, and each delivery date is before Nov 19 (or ship it home).
@@ -43,6 +44,7 @@ This file holds what the issues don't: decisions and the reasons for them, probl
 | Nov 12 | Added a multimeter, safety glasses, heat shrink, spare props and battery straps | Gaps found in the parts review. The multimeter and glasses are required by SAFETY.md. |
 | Nov 12 | Arduino IDE for the firmware | Simplest start; most Nano quad references use it. Could move to PlatformIO later if the code grows. |
 | Nov 12 | Public GitHub repo | Portfolio. Private links and names go in the git-ignored `CLAUDE.local.md`. |
+| Nov 12 | CLAUDE.md holds only project context and conventions; my background and reply preferences live in `CLAUDE.local.md` | CLAUDE.md is public, and a portfolio reader doesn't need my working preferences. Both files still load in every local session. |
 | Nov 12 | The Google Sheet is the source of truth for the parts list; `parts.md` is a snapshot | It's where I look when I'm shopping. Two editable copies drift apart, so I update the Sheet first, then refresh `parts.md` occasionally. |
 | Nov 12 | Helping hands, brass tip cleaner and battery straps moved to Optional (Claude's recommendation in the second check; reverse it in the Sheet if I disagree) | The soldering station kit already includes helping hands and a sponge. A rubber band holds the battery and weighs less than a strap. Saves about $48. |
 | Nov 12 | USB and LiPo together only with props off; with props on, data comes back over the radio | An upload resets the Nano, and a USB cable on a tilting rig can reach the props. Sending data back in the radio's acknowledgement packet keeps the rule simple. |
