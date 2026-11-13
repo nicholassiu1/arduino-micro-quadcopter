@@ -82,7 +82,18 @@ A motor is an inductor. When the MOSFET turns off, the current keeps flowing and
 
 During PWM the diode carries the motor current for the off part of each cycle. Average diode current ≈ I_motor × (1 - duty). At 1.5 A and 50% duty that's 0.75 A, under the 1N5819's 1 A rating. At full throttle the duty is near 100% and the diode current is near zero. Its 25 A surge rating covers the brief peaks.
 
-## 5. What gets measured, and where it goes
+## 5. Battery-sense divider
+The Nano runs from the MT3608, so its 5 V rail can move with load. I read the battery against the ATmega's internal 1.1 V reference instead (`analogReference(INTERNAL)`), which doesn't depend on the supply. The datasheet gives it as 1.0-1.2 V, so the two-point check against the multimeter sets the real scale factor.
+
+The pin must stay under 1.1 V at a full cell (4.2 V). One 10 kΩ on top of a 4.7 kΩ isn't enough: V_pin = 4.2 × 4.7 / 14.7 = 1.34 V, so the reading would max out at 1.1 × 14.7 / 4.7 = 3.4 V. With both of the IOLab pack's 10 kΩ in series on top:
+
+- V_pin = 4.2 × 4.7 / 24.7 = 0.80 V at a full cell
+- Top of the range = 1.1 × 24.7 / 4.7 = 5.8 V
+- Resolution = 5.8 V / 1024 ≈ 6 mV per step
+- Source impedance = 20 kΩ ∥ 4.7 kΩ ≈ 3.8 kΩ, under the 10 kΩ the ADC wants. The 0.1 µF cap from the pin to GND smooths motor noise.
+- Drain on the battery: 4.2 V / 24.7 kΩ ≈ 0.17 mA, about 150 days to empty a 600 mAh cell. Still unplug the battery after flying.
+
+## 6. What gets measured, and where it goes
 
 | Measurement | Replaces | Issue | Data file |
 |---|---|---|---|

@@ -2,7 +2,7 @@
 
 I update this file as the work happens. The dated schedule is in `TIMELINE.md` and the parts status is in `parts.md`.
 
-Current phase: Phase 0, before Thanksgiving (Nov 12-20). Get every part in hand and smoke-test it.
+Current phase: Phase 0, before Thanksgiving (Nov 12-20). Every order ships home for Thanksgiving break, so this phase is orders, campus parts and CAD; testing starts at home on Nov 21.
 
 ## Tasks
 Tasks are GitHub Issues, grouped into one milestone per phase:
@@ -28,73 +28,80 @@ This file holds what the issues don't: decisions and the reasons for them, probl
 - [x] Cost check against local stores, campus and online sellers: Sheet regrouped by store, estimated total down from ~$387 to ~$319, counting parts from the IOLab pack and the safety glasses I already own (Nov 12)
 
 ## Next session
-- Paste the Amazon cart for a title check against the Sheet, then order (#1). In the cart, confirm the motor listing says (8) motors, the battery plug is JST-RCY, and each delivery date is before Nov 19 (or ship it home).
-- ECE Supply run Mon Nov 16 (#6): open Mon-Fri, 9-noon and 1-3:30. The list now includes 0.1 µF capacitors, plus the transmitter parts that neither the dropped starter kit nor my IOLab pack covers (breadboard, 220 Ω and 10 kΩ resistors, buzzer, buttons, one LED). Before going, check the IOLab bag against the list in `parts.md`. Check whether the $4.45 economy stripper handles 26 AWG, and whether the 1N5819 is back in stock.
-- Check my dad's multimeter: a 10 A DC range, a 20 V DC range, a continuity beep, and a fresh battery. If it has no 10 A range, buy the Harbor Freight Cen-Tech (item 59434, ~$5, price unconfirmed).
-- AliExpress Nanos: check the delivery date at checkout. If it's after Nov 20, buy the Amazon ELEGOO 3-pack instead.
-- Measure motor thrust as soon as the motors arrive (#14), recording the voltage across the motor, before the frame CAD.
+- Order everything shipped home, due by Sat Nov 21 (#1): every Amazon, AliExpress, Target and Bambu link in the Sheet. In the Amazon cart, confirm the motor listing says (8) motors and the battery plug is JST-RCY. On AliExpress, select the AO3400 and SOP10(SOT23) options and check every delivery date (two Amazon ELEGOO 3-packs if the Nanos can't make it). Confirm the A1 mini price at Target.
+- CAD until Nov 20: the motor-mount coupon, the thrust-test fixture and the battery-tray test piece.
+- Take the FAA TRUST test (#4).
+- Draw the motor-mount coupon (#5), the thrust-test fixture and the battery-tray test piece. The coupon prints on the A1 mini at home.
+- KiCad: the pin map on paper first (#15), then the schematics.
+- ECE Supply run Mon Nov 16 (#6): open Mon-Fri, 9-noon and 1-3:30. The list now includes 0.1 µF capacitors, plus the transmitter parts that neither the dropped starter kit nor my IOLab pack covers (breadboard, 220 Ω and 10 kΩ resistors, buzzer, buttons, one LED). Before going, check the IOLab bag against the list in `parts.md`, including the size of its breadboard.
 
 ## Start to finish
 The order I work in and the check that lets me move to the next stage. Dates are in `TIMELINE.md`; this list is the order and the gates. If a gate fails, I fix it before starting the next stage, because each stage builds on the one before.
 
 These rules hold at every stage (details in `SAFETY.md`): safety glasses for soldering and any test with props on; USB and LiPo together only with props off; charge only in Dad's LiPo bag, on a non-flammable surface, never unattended; a new code feature is tested props off before props on.
 
-### 1. Parts in hand and tested (Nov 12-20)
-1. Check Dad's multimeter (10 A DC, 20 V DC, continuity). Buy the Cen-Tech only if there is no 10 A range.
-2. Order the AliExpress Nanos. If the delivery date is after Nov 20, order the Amazon ELEGOO 3-pack instead.
-3. Paste the Amazon cart for a title check, then order it (#1). Anything due after Nov 19 ships to my home address.
-4. Take the FAA TRUST test and save the certificate (#4).
-5. Draw the motor-mount coupon in SolidWorks (#5) and print it.
-6. Check the IOLab bag, then do the ECE Supply and JIS runs on Mon Nov 16 (#6).
-7. Go through the "Check at home" table in `parts.md` and buy anything missing.
-8. Soldering practice on the spare perfboard (#16), then the GY-521 header pins and MT3608 leads.
-9. Smoke test each part as it arrives (#7). The MT3608 gets set to 5.0 V before anything is connected to it.
-10. Thrust and current test on one motor (#14).
-11. Choose the motor hole size from the coupon and pack the kit.
+### 1. Orders and design work, no parts yet (Nov 13-20, campus)
+1. Order everything shipped home, every delivery due by Sat Nov 21 (#1).
+2. Take the FAA TRUST test and save the certificate (#4).
+3. SolidWorks: the motor-mount coupon (#5), a thrust-test fixture that holds the coupon on the scale, a battery-tray test piece. GrabCAD models.
+4. KiCad: pin map first (#15), then the quad and transmitter schematics.
+5. Check the IOLab bag, then do the ECE Supply run on Mon Nov 16 (#6). Print the fixture at JIS. The M2 and M3 hardware waits for the Dec run.
+6. Arduino IDE, CH340 driver, RF24 library, and a firmware skeleton that compiles (not tested until it runs on hardware).
+7. Pack the campus parts and tools for home on Nov 20.
 
-Gate: every part works, and the thrust numbers are in `docs/data/thrust-test.csv`. A dead part gets reordered right away, shipped to my home.
+Gate: every order shows a delivery date by Nov 21, and both schematics are drawn.
 
-### 2. Weight limit (Nov 21)
-1. Scale the bench thrust to flight voltage with section 2 of `docs/design-calcs.md`.
-2. Weight limit = 4 × in-flight thrust per motor / 1.5.
-3. From that limit, choose TO-220 or SOT-23 MOSFETs and set a gram limit for the frame plus guards.
-4. Log the decision in the Decisions table below.
+### 2. Parts tested and thrust measured (Nov 21-23, home)
+1. Unbox and check every package against the Sheet; reorder anything wrong the same day.
+2. A1 mini setup (firmware update, calibration, Wi-Fi, one PETG test print), then print the coupon on it. The hole size only holds for the printer that made it.
+3. Soldering practice on the spare perfboard (#16), then the GY-521 header pins and MT3608 leads.
+4. Smoke test each part (#7). The MT3608 gets set to 5.0 V before anything is connected to it.
+5. Choose the motor hole size from the coupon.
+6. Thrust and current test on one motor (#14), with my dad's multimeter on its 10 A range.
+7. Weight limit: scale the bench thrust to flight voltage (section 2 of `docs/design-calcs.md`), then limit = 4 × in-flight thrust per motor / 1.5. Choose TO-220 or SOT-23 MOSFETs and a gram limit for the frame plus guards. Log it in the Decisions table.
 
-Gate: the lightest build in the weight budget fits under the limit. If it doesn't, I stop and rethink the motors or battery before any CAD.
+Gate: every part works, the thrust numbers are in `docs/data/thrust-test.csv`, and the lightest build in the weight budget fits under the limit. If it doesn't, I stop and rethink the motors or battery before any CAD.
 
-### 3. Every subsystem on the breadboard (Nov 21-27)
+### 3. Every subsystem on the breadboard (Nov 23-29, home)
 1. IMU: calibrated gyro, complementary filter, smooth angle in the Serial Plotter (#9).
-2. Pin map (#15), then the radio link with the 250 ms failsafe and telemetry in the ack payload (#10).
-3. One motor driver from the joystick, props off, with the MOSFET check (#11).
-4. Board layout on paper with its outer dimensions (#17).
+2. Transmitter: the second Nano on the ECE breadboard with both joysticks, the arm and kill buttons, the buzzer, the two LEDs, and its own AMS1117 and radio, powered from the USB power bank. Every input prints correctly over serial.
+3. Radio link with the 250 ms failsafe and telemetry in the ack payload (#10).
+4. Range test, props off: walk the transmitter to the far side of the room and back. The link holds, and switching the transmitter off trips the failsafe.
+5. One motor driver from the joystick, props off, with the MOSFET check (#11).
+6. Battery sense: compare the Nano's battery reading with the multimeter at two charge levels, and set the scale factor in code.
+7. Board layout with its outer dimensions, from the KiCad schematic (#17).
+8. Weigh every real part and fill in the Measured column (#13).
 
-Gate: each "Done when" in `TIMELINE.md` passes, and the Nano doesn't reset under motor load. Tag `v0.1-breadboard`.
+Gate: each "Done when" in `TIMELINE.md` passes, the Nano doesn't reset under motor load, and the battery reading is within 0.05 V of the multimeter (my target, not a datasheet value). Tag `v0.1-breadboard`.
 
-### 4. Frame designed and parts weighed (Nov 28-29)
+### 4. Frame designed (Nov 30 to Dec 6, campus)
 1. Frame CAD around the board outline, battery tray, rig attachment points (#12).
-2. Weigh every real part and fill in the Measured column (#13).
+2. Print a first frame on the A1 mini and check the fit with the real parts.
+3. Prop guards and a full SolidWorks assembly; check fit and that nothing reaches the prop plane.
 
-Gate: CAD mass plus measured parts is under the weight limit (the Nov 29 checkpoint in `TIMELINE.md`).
+Gate: CAD mass plus measured parts is under the weight limit.
 
-### 5. Everything printed (Nov 30 to Dec 10)
-1. Prop guards and a full SolidWorks assembly; check fit and that nothing reaches the prop plane.
-2. Print the frame variants, guards plus spares, and the test rig. Submit early enough for one reprint.
-3. Last JIS run: rig pivot hardware, spare screws.
+### 5. Everything printed (Dec 5-10, campus)
+1. Print the frame variants, guards plus spares, and the test rig on my A1 mini (JIS as backup). Start early enough for one reprint.
+2. Last JIS run: rig pivot hardware, spare screws.
 
-Gate: every printed part is in hand and fits the real motors, board and battery before I leave campus.
+Gate: every printed part is in hand and fits the real motors, board and battery by Dec 10.
 
 ### 6. Build and safety firmware (Dec 19-27)
 1. Solder the flight board from the layout. Check continuity and shorts with the multimeter before the first power-up.
 2. Mount it on the frame and weigh the whole quad.
-3. Stage 0: all eight firmware safety features in `SAFETY.md` section 5, on USB, no battery (#18).
-4. Stage 1: motor order, spin direction and mixing, props off. Ten battery plug-ins with no twitch.
+3. Balance check: balance the quad on a fingertip or pencil at the frame center with the battery in. Move the battery until it sits level.
+4. Stage 0: all eight firmware safety features in `SAFETY.md` section 5, on USB, no battery (#18).
+5. Stage 1: motor order, spin direction and mixing, props off. Ten battery plug-ins with no twitch.
 
-Gate: Stage 0 and Stage 1 both pass. I review the safety code line by line and can explain each feature before props go on.
+Gate: Stage 0 and Stage 1 both pass, and the quad balances at its center. I review the safety code line by line and can explain each feature before props go on.
 
 ### 7. Rate loop on the rig (Dec 28 to Jan 3)
-1. Fixed loop rate, measured.
-2. Rate PID on roll, then pitch, tuned from radio telemetry plots; recheck near hover throttle.
-3. Angle loop on top.
+1. Prop check before the first spin with props on: each prop's direction matches its motor's spin (CW props on CW motors), and every prop pushes air down.
+2. Vibration check: on the rig, spin the motors at several throttles and plot the IMU angle. If the angle shakes, soft-mount the IMU on foam tape or lower the filter cutoff before tuning.
+3. Fixed loop rate, measured.
+4. Rate PID on roll, then pitch, tuned from radio telemetry plots; recheck near hover throttle.
+5. Angle loop on top.
 
 Gate, Jan 3: the rig holds steady. If not, switch to the fallback chosen in #19 and get that flying first.
 
@@ -106,7 +113,7 @@ Gate, Jan 3: the rig holds steady. If not, switch to the fallback chosen in #19 
 Gate: a stable untethered hover on my own firmware. Tag `v1.0-first-hover`.
 
 ### 9. Write-up (Jan 11-17)
-README with photos, CAD renders, the wiring diagram, measured data and a short video. Close the remaining issues and milestones. This week is also the buffer for anything that ran late.
+README with photos, CAD renders, the KiCad wiring diagram, measured data and a short video. Close the remaining issues and milestones. This week is also the buffer for anything that ran late.
 
 ## Decisions
 | Date | Decision | Why |
@@ -129,10 +136,17 @@ README with photos, CAD renders, the wiring diagram, measured data and a short v
 | Nov 12 | Use my IOLab E&M small accessory pack first: 220 µF bus cap (instead of 470 µF), 22 µF radio caps (instead of 10 µF), LEDs, 1 kΩ LED resistors, battery-sense resistors, small breadboard, alligator leads | I already own it, so every part it covers comes off the ECE list (~$4). 220 µF is lighter than 470 µF; if the Nano resets under motor load, the pack's second 220 µF goes in parallel. Nothing in the Skipped list came back: the pack has no jumpers, buzzer, buttons or flux. |
 | Nov 12 | Multimeter from Harbor Freight (Cen-Tech 59434, ~$5) instead of the AstroAI AM33D ($18); flux pen and solder wick skipped | Setting the MT3608 and checking for shorts and motor current doesn't need a better meter. Every joint is through-hole, so rosin-core solder's own flux and the kit's solder sucker are enough. Together with the Uno swap this saves about $60. |
 | Nov 12 | Kept on Amazon: radios, Nanos, MOSFETs, soldering station, caliper, scale, LiPos | Tayda and AliExpress are cheaper per part, but shipping and delivery times don't fit an order that has to arrive by Nov 20. ECE has no logic-level TO-220 MOSFET. Campus soldering benches don't lend tools to take home. Harbor Freight's cheaper caliper reads only to 0.1 mm. |
-| Nov 12 | My own 3D printer is at school, so I print there before Thanksgiving and between Nov 30 and finals | No printer at home means no reprints over either break unless I take the printer home. The frame v0 printed before Nov 21 is practice; the real frame is printed before I leave in December. |
+| Nov 12 | Before Nov 20 I print on the printer at school; from Nov 21 I own a Bambu A1 mini | The school printer covers the thrust-test fixture. My own printer is with me at all times once it arrives, so a bad frame can be reprinted over break instead of waiting for January. |
 | Nov 12 | Nanos from AliExpress (3 clones, ~$4) instead of the Amazon ELEGOO 3-pack ($19); this reverses the Nanos part of the "Kept on Amazon" row | About $15 cheaper. The Amazon pack stays in the Sheet's Skipped section as the backup if the AliExpress delivery date is after Nov 20. |
-| Nov 12 | Optional printer: Bambu A1 mini from Target, PETG Basic (with spool) from the Bambu store | Target doesn't sell PETG or spools. 1 kg covers the whole project (~200-400 g, estimate). Every part is designed to print without supports, so no support filament. |
-| Nov 12 | My dad's multimeter first; the Harbor Freight Cen-Tech only if it has no 10 A range | No purchase if his meter can read motor current. The 10 A range is what the thrust test needs. |
+| Nov 12 | My printer: Bambu A1 mini from Target, PETG Basic (with spool) from the Bambu store | Target doesn't sell PETG or spools. 1 kg covers the whole project (~200-400 g, estimate). Every part is designed to print without supports, so no support filament. |
+| Nov 13 | My dad's multimeter instead of buying one; the Harbor Freight Cen-Tech is dropped | I checked it: it has the ranges the build needs, including 10 A for the thrust test. |
+| Nov 13 | KiCad for the schematics | Drawing the quad and transmitter circuits before soldering catches pin conflicts, and the schematic becomes the README wiring diagram. |
+| Nov 13 | Print the motor-mount coupon on the A1 mini, not at school | A press-fit result only holds for the printer that made it, and the frame prints on the A1 mini. |
+| Nov 13 | Every online order ships home for break, due by Nov 21 | I'm home from Nov 20 to Nov 29, and that's where the electronics work happens. The cost is about four days: smoke tests, soldering practice and the thrust test move from before break to Nov 21-23, and the frame CAD moves to after break. An Amazon Locker near campus would have kept those days. |
+| Nov 13 | SOT-23 MOSFETs (AO3400A), adapter boards and a flux pen go in the first order; Nanos 3 to 5; a second Mini USB cable | My own estimates put the lightest build above the weight limit unless the motors beat the seller's thrust claim. If the Nov 23 check fails, I can switch to the lighter parts the same day. The spare Nanos cover the fallback's radio bridge (#19), and two cables let both Nanos run on USB during the radio tests. About $33 more. |
+| Nov 13 | The SOT-23 MOSFETs, adapters and flux pen move to the AliExpress order; the HiLetgo 4-pack replaces the MakerFocus radios; no extra prop pack | The Amazon listings were unavailable. AliExpress ships with the Nanos and costs ~$7 instead of ~$27. The motor set's 8 props give 4 spares, and I reorder props once I'm down to 2. |
+| Nov 13 | No microSD card for the A1 mini | UIUC has a student process for putting a 3D printer on the campus network, so the printer can print over Wi-Fi on campus too. |
+| Nov 13 | Battery sense: two 10 kΩ in series over one 4.7 kΩ, on the 1.1 V internal reference | The boost converter's 5 V can move under load, and the internal reference doesn't. With a single 10 kΩ on top, the pin would pass 1.1 V and the reading would max out at 3.4 V, so a full cell would read the same as a nearly empty one. Calcs in `docs/design-calcs.md`. |
 | Nov 12 | My dad's LiPo safe bag replaces the Zeee bag | One is already at home. Check it for holes or torn seams before the first charge. |
 | Nov 12 | Low-battery limits: warn at ~3.5 V, land at ~3.3 V under load, to be checked against measured sag | A single 3.5 V "land" limit would probably trip in the first minute, because four motors pull the voltage down 0.3-0.6 V (estimate). |
 
