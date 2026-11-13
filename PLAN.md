@@ -25,10 +25,13 @@ This file holds what the issues don't: decisions and the reasons for them, probl
 - [x] Second independent check of the materials and build sequence (section 6 of the design review): Sheet corrected (capacitors and jumper wires added, three redundant items made optional); `TIMELINE.md`, `SAFETY.md` and `parts.md` updated; issues #17-#19 created (Nov 12)
 - [x] Edited the docs, issues and repo description with the humanizer skill: first person, plainer formatting (Nov 12)
 - [x] Tidied the public repo: personal preferences moved from CLAUDE.md to CLAUDE.local.md, duplicate skill removed, Wiki and Projects turned off, README image and lessons added, `docs/design-calcs.md` and a thrust-test CSV started (Nov 12)
+- [x] Cost check against local stores, campus and online sellers: Sheet regrouped by store, estimated total down from ~$387 to ~$319, counting parts from the IOLab pack and the safety glasses I already own (Nov 12)
 
 ## Next session
 - Paste the Amazon cart for a title check against the Sheet, then order (#1). In the cart, confirm the motor listing says (8) motors, the battery plug is JST-RCY, and each delivery date is before Nov 19 (or ship it home).
-- ECE Supply run Mon Nov 16 (#6): open Mon-Fri, 9-noon and 1-3:30. The list now includes 10 µF and 0.1 µF capacitors.
+- ECE Supply run Mon Nov 16 (#6): open Mon-Fri, 9-noon and 1-3:30. The list now includes 0.1 µF capacitors, plus the transmitter parts that neither the dropped starter kit nor my IOLab pack covers (breadboard, 220 Ω and 10 kΩ resistors, buzzer, buttons, one LED). Before going, check the IOLab bag against the list in `parts.md`. Check whether the $4.45 economy stripper handles 26 AWG, and whether the 1N5819 is back in stock.
+- Check my dad's multimeter for a 10 A DC range. If it has none, buy the Harbor Freight Cen-Tech (item 59434, ~$5, price unconfirmed).
+- AliExpress Nanos: check the delivery date at checkout. If it's after Nov 20, buy the Amazon ELEGOO 3-pack instead.
 - Measure motor thrust as soon as the motors arrive (#14), recording the voltage across the motor, before the frame CAD.
 
 ## Decisions
@@ -48,6 +51,14 @@ This file holds what the issues don't: decisions and the reasons for them, probl
 | Nov 12 | The Google Sheet is the source of truth for the parts list; `parts.md` is a snapshot | It's where I look when I'm shopping. Two editable copies drift apart, so I update the Sheet first, then refresh `parts.md` occasionally. |
 | Nov 12 | Helping hands, brass tip cleaner and battery straps moved to Optional (Claude's recommendation in the second check; reverse it in the Sheet if I disagree) | The soldering station kit already includes helping hands and a sponge. A rubber band holds the battery and weighs less than a strap. Saves about $48. |
 | Nov 12 | USB and LiPo together only with props off; with props on, data comes back over the radio | An upload resets the Nano, and a USB cable on a tilting rig can reach the props. Sending data back in the radio's acknowledgement packet keeps the rule simple. |
+| Nov 12 | The transmitter is the spare Nano on a breadboard instead of an Uno; the ELEGOO starter kit is dropped | The Nano has the same ATmega328P and runs the same code. The kit cost $44; the parts I needed from it cost ~$12 at ECE Supply, with the rest from my IOLab pack. The 3-pack still leaves one spare Nano. |
+| Nov 12 | Use my IOLab E&M small accessory pack first: 220 µF bus cap (instead of 470 µF), 22 µF radio caps (instead of 10 µF), LEDs, 1 kΩ LED resistors, battery-sense resistors, small breadboard, alligator leads | I already own it, so every part it covers comes off the ECE list (~$4). 220 µF is lighter than 470 µF; if the Nano resets under motor load, the pack's second 220 µF goes in parallel. Nothing in the Skipped list came back: the pack has no jumpers, buzzer, buttons or flux. |
+| Nov 12 | Multimeter from Harbor Freight (Cen-Tech 59434, ~$5) instead of the AstroAI AM33D ($18); flux pen and solder wick skipped | Setting the MT3608 and checking for shorts and motor current doesn't need a better meter. Every joint is through-hole, so rosin-core solder's own flux and the kit's solder sucker are enough. Together with the Uno swap this saves about $60. |
+| Nov 12 | Kept on Amazon: radios, Nanos, MOSFETs, soldering station, caliper, scale, LiPos | Tayda and AliExpress are cheaper per part, but shipping and delivery times don't fit an order that has to arrive by Nov 20. ECE has no logic-level TO-220 MOSFET. Campus soldering benches don't lend tools to take home. Harbor Freight's cheaper caliper reads only to 0.1 mm. |
+| Nov 12 | My own 3D printer is at school, so I print there before Thanksgiving and between Nov 30 and finals | No printer at home means no reprints over either break unless I take the printer home. The frame v0 printed before Nov 21 is practice; the real frame is printed before I leave in December. |
+| Nov 12 | Nanos from AliExpress (3 clones, ~$4) instead of the Amazon ELEGOO 3-pack ($19); this reverses the Nanos part of the "Kept on Amazon" row | About $15 cheaper. The Amazon pack stays in the Sheet's Skipped section as the backup if the AliExpress delivery date is after Nov 20. |
+| Nov 12 | Optional printer: Bambu A1 mini from Target, PETG Basic (with spool) from the Bambu store | Target doesn't sell PETG or spools. 1 kg covers the whole project (~200-400 g, estimate). Every part is designed to print without supports, so no support filament. |
+| Nov 12 | My dad's LiPo safe bag replaces the Zeee bag | One is already at home. Check it for holes or torn seams before the first charge. |
 | Nov 12 | Low-battery limits: warn at ~3.5 V, land at ~3.3 V under load, to be checked against measured sag | A single 3.5 V "land" limit would probably trip in the first minute, because four motors pull the voltage down 0.3-0.6 V (estimate). |
 
 ## Problems
@@ -77,12 +88,12 @@ This file holds what the issues don't: decisions and the reasons for them, probl
 | Nov 12 | Electronics | Some pins have a second job. D10 is the SPI "slave select" pin, and starting the radio drives it HIGH, so motor pins must be set LOW first. Check a pin's other functions before giving it a job. |
 | Nov 12 | Process | Find the **critical path**: the chain of tasks where each one waits on the one before (thrust test, weight plan, board layout, frame CAD, print). A delay anywhere on it delays the end date. |
 | Nov 12 | ME | Bracket a tolerance test: print hole sizes on both sides of the expected best fit, because printed holes come out 0.1-0.3 mm smaller than drawn. |
+| Nov 12 | Electronics | Plumbing flux from a hardware store is acid flux and corrodes circuit boards. Electronics work uses rosin or no-clean flux only. |
 | Nov 12 | Claude Code | A second review in a fresh session catches different things than the first. Ask the reviewer to check facts against sources (listings, datasheets, source code) instead of trusting memory, its own included. |
 
 ## Open questions
 - Does UIUC policy FO-05 (DPS permission) cover indoor flight on campus? Assume yes until DPS says otherwise.
 - Is there a documented Arduino Nano brushed-quad build to use as a wiring/PID reference? Compare it against `parts.md`. Leads found Nov 12, not yet vetted: the `execuc/multwii-brushed-nrf24l01` fork on GitHub (its author calls it not fully tested), iforce2d's nRF24 radio-control thread on the Arduino forum (a second Arduino turns nRF24 packets into a PPM signal for MultiWii), and an Instructables "Arduino Mini Quadcopter With NRF24L01" build on MultiWii 2.3. See #19.
-- Is my own 3D printer at school or at home? If it's at home, the Dec 10 print deadline matters much less, because a wrong frame can be reprinted over break.
 - How long does a JIS print take from submitting to pickup? The Nov 16-18 coupon and the Dec 3-9 frame prints both depend on it.
 - MOSFETs: stay with the TO-220 IRLZ44N or switch to SOT-23 parts (about 6-7 g lighter, harder to solder)? Decide at the weight plan, after the thrust test.
 - Throttle stick: the joysticks are spring-centered. Planned mapping is middle and below = zero throttle, so letting go cuts power. Confirm when writing the radio code (#10).

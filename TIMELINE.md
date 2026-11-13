@@ -21,13 +21,15 @@ Goal: have every part in hand, know that each part works, and know how much thru
 | Nov 12 | Install SolidWorks (#3). Done. | It opens and I have a license |
 | Nov 13-15 | Take the FAA TRUST test (#4; free, ~30 min). Save the certificate PDF. | Certificate saved |
 | Nov 13-15 | SolidWorks lesson 1: motor-mount test coupon (#5). One arm stub with five press-fit holes, 8.5 to 8.9 mm in 0.1 mm steps. The coupon also holds the motor for the thrust test. | STL exported |
-| Mon Nov 16 to Wed Nov 18 | ECE Supply (ECEB 1031) (#6): 470 µF caps, 10 µF and 0.1 µF caps, 26 AWG stranded wire, 2 perfboards, Mini-USB cable, safety glasses, heat shrink, 60/40 solder. JIS (MEB 0100): M2/M3 screws, nuts, washers. Submit the coupon print early and ask how long prints take. | Bag of parts; coupon printed |
+| Mon Nov 16 to Wed Nov 18 | ECE Supply (ECEB 1031) (#6): 0.1 µF caps, transmitter parts (breadboard, resistors, buzzer, buttons, LED), 26 AWG stranded wire, 2 perfboards, Mini-USB cable, heat shrink, 60/40 solder. JIS (MEB 0100): 12 M2 × 8 mm screws, 12 M2 nylon locknuts, 8 M2 washers (the M3 rig pivot hardware waits for the Dec run). Submit the coupon print early and ask how long prints take. | Bag of parts; coupon printed |
 | Once the soldering station and the ECE parts are in hand | Soldering practice (#16) on the spare perfboard. Then solder the GY-521 header pins and the MT3608 leads. | Joints pass a tug test and a continuity check |
 | As the Amazon order arrives | Smoke test each part (#7): the Nano uploads Blink; the MT3608 is set to 5.0 V with a multimeter before anything is connected; the AMS1117 gives 3.3 V; the MPU-6050 shows readings (I2C scanner, then raw values); each motor spins on a battery; battery polarity is checked. | Every part checked off |
 | As soon as the motors, scale, multimeter and a charged battery are in hand | Thrust and current test (#14). One motor, no Arduino. Record four numbers: battery voltage at rest, voltage across the motor while it runs, amps, grams. Follow the thrust-stand rules in `SAFETY.md`. If the parts arrive too late, this is the first job at home on Nov 21. | Numbers recorded in the repo |
 | By Fri Nov 20 | Try the motors in the coupon and choose the hole size. Pack the whole kit to take home: soldering station, solder, multimeter, scale, calipers, LiPo bag, spare Nanos, safety glasses, every part. | Everything packed |
 
 > Why five hole sizes: a printed hole comes out about 0.1-0.3 mm smaller than drawn, so the best fit is probably near 8.7 mm. Test sizes on both sides of the guess. The result only holds for the same printer, material and print orientation, so print the real frame the same way.
+
+> Design every part to print without supports: flat face on the bed, overhangs under about 45°. Bambu Studio shows overhangs in red after slicing, so I check there before printing. This is why I don't need support filament.
 
 > If Amazon is late: Phase 1 doesn't need the frame, so a late delivery to my home address only costs a few days.
 
@@ -38,7 +40,7 @@ Goal: every subsystem works on the breadboard, and the frame is designed around 
 |---|---|---|
 | Sat Nov 21 | If it isn't done yet: thrust test (#14). Then make the weight plan: from the measured thrust, set the all-up weight limit, choose the MOSFET type (TO-220 or the lighter SOT-23), and set a gram limit for frame + guards. | Decision written in `PLAN.md` |
 | Sat-Sun Nov 21-22 | IMU code (#9): read gyro + accel, calibrate gyro offsets at startup, write a complementary filter for roll/pitch angle. Plot it in the Serial Plotter. | Tilting the board gives a smooth, correct angle with no drift |
-| Mon-Tue Nov 23-24 | Pin map first (#15), then the radio link (#10): an Uno with 2 joysticks sends through an nRF24L01 to the Nano. Send a 4-channel packet (throttle, yaw, pitch, roll) at about 50 Hz. Add the failsafe: motors off if no packet arrives for 250 ms. Decide how the spring-centered throttle stick maps to throttle. Send data back to the transmitter in the acknowledgement packet (telemetry), because tuning with props on can't use a USB cable. | Stick values print on the Nano; unplugging the transmitter trips the failsafe; the Uno prints data sent back by the Nano |
+| Mon-Tue Nov 23-24 | Pin map first (#15), then the radio link (#10): the transmitter Nano (on a breadboard) with 2 joysticks sends through an nRF24L01 to the flight Nano. Send a 4-channel packet (throttle, yaw, pitch, roll) at about 50 Hz. Add the failsafe: motors off if no packet arrives for 250 ms. Decide how the spring-centered throttle stick maps to throttle. Send data back to the transmitter in the acknowledgement packet (telemetry), because tuning with props on can't use a USB cable. | Stick values print on the Nano; unplugging the transmitter trips the failsafe; the transmitter prints data sent back by the flight Nano |
 | Wed Nov 25 | One motor driver (#11): MOSFET + gate resistor + pull-down + flyback diode, driven by PWM. Ramp the throttle from the joystick. Props off (USB may stay connected only because the props are off). Check the MOSFET is genuine: under 0.1 V from drain to source with the motor at full PWM. | The motor speed follows the stick smoothly; the Nano doesn't reset under load; the MOSFET stays cool |
 | Thu-Fri Nov 26-27 | Thanksgiving. Light work only: lay out the perfboard on paper (#17). Place every part, the power and ground bus, the battery-sense wire and the mounting holes, then fix the board's outline. If time allows, start the arming logic (#18). | A layout drawing with outer dimensions |
 | Sat-Sun Nov 28-29 | SolidWorks lessons 2-3 (#12): main frame plate (≈120 mm motor-to-motor diagonal) designed around the board outline from the layout, battery tray for 57×18×7.6 mm, and attachment points for the single-axis rig on both the roll and pitch axes. Use the mass properties tool with PETG to estimate the frame weight. Weigh every real part (#13) on the 0.01 g scale and update the weight budget. | Frame STL ready; weight budget filled in with measured values |
@@ -50,12 +52,12 @@ Goal: finish every printed part before JIS closes. Keep it light; classes and fi
 
 | When | Task |
 |---|---|
-| Nov 30 to Dec 3 | Fix any frame problems. SolidWorks lesson 4: prop guards. Lesson 5: assembly with GrabCAD models. Check that every part fits, that nothing tall reaches the prop plane (lay the MOSFETs and the 470 µF cap flat), and that neighboring guards don't collide. |
+| Nov 30 to Dec 3 | Fix any frame problems. SolidWorks lesson 4: prop guards. Lesson 5: assembly with GrabCAD models. Check that every part fits, that nothing tall reaches the prop plane (lay the MOSFETs and the 220 µF cap flat), and that neighboring guards don't collide. |
 | Dec 3-9 (JIS) | Print in PETG: 2-3 frame variants that differ where I'm least sure (for example a light one and a stiffer one), 1 set of prop guards plus spares, and the single-axis test rig. The rig's pivot line should pass through the quad's center of mass. I can't measure that yet, so the rig gets pivot holes at a few heights. Submit early enough for a reprint. |
-| By Dec 10 | Last campus run: spare screws, the rig's pivot hardware, extra wire, anything that broke. |
+| By Dec 10 | Last campus run: spare screws, the rig pivot hardware (2 M3 screws, 2 M3 locknuts, 4 M3 washers), extra wire, anything that broke. |
 | Optional | Lesson 6: transmitter case. It isn't essential, so it's the first thing to cut if I run short of time. |
 
-> Everything printed here is designed before the electronics are assembled, which is the riskiest part of this schedule. If my own 3D printer is at home, a wrong frame can be reprinted over break and this deadline matters much less.
+> Everything printed here is designed before the electronics are assembled, which is the riskiest part of this schedule. My own 3D printer is at school, so a wrong frame can't be reprinted over break unless I take the printer home in December.
 
 ## Finals (about Dec 11 to 18): project paused
 Nothing scheduled. Optional: read a reference Nano quad build or the MultiWii source for PID structure and starting gains, and decide what the fallback would really be (#19): stock MultiWii has no nRF24 receiver and puts a motor on pin D11, which the radio needs.
@@ -65,7 +67,7 @@ Goal: an assembled quad that runs all four motors correctly with the props off.
 
 | Days | Task | Done when |
 |---|---|---|
-| Dec 19-21 | Solder the perfboard from the layout: Nano, 4 MOSFET channels, diodes, 470 µF cap, battery lead, MT3608, AMS1117, radio with its 10 µF + 0.1 µF caps, battery-sense wire, status LED. Check continuity and for shorts with the multimeter before the first power-up. | It powers on from the LiPo with no smoke or resets |
+| Dec 19-21 | Solder the perfboard from the layout: Nano, 4 MOSFET channels, diodes, 220 µF cap, battery lead, MT3608, AMS1117, radio with its 22 µF + 0.1 µF caps, battery-sense wire, status LED. Check continuity and for shorts with the multimeter before the first power-up. | It powers on from the LiPo with no smoke or resets |
 | Dec 22-23 | Mount everything on the frame. Weigh the finished quad. Note the IMU's orientation in code. Stage 0 (#18): all eight firmware safety features in `SAFETY.md` section 5 work on USB power, with no battery connected. | Under the weight limit; IMU axes match the frame; Stage 0 passes |
 | Dec 24-26 | Christmas. | |
 | Dec 27 | Stage 1: motor mixing, props off. Confirm each motor number, its spin direction, and that roll/pitch/yaw commands speed up the correct motors. Plug the battery in ten times: no motor may twitch at power-up. | All mixing checks pass on the bench |
