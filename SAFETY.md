@@ -82,7 +82,7 @@ Discharge a dead or damaged cell completely (for example, through a resistor or 
 - Each MOSFET gate needs its 10 kΩ pull-down. Without it, motors can twitch on during reset or upload, while the Nano's pins are floating.
 - Set every motor pin LOW before the radio starts. Pin D10 is the SPI "slave select" pin, and `SPI.begin()` (which `radio.begin()` calls) drives it HIGH unless it is already an output. If a motor is on D10 and the radio starts first, that motor runs at full power until the code writes the pin. The pull-down can't stop this: it only holds a floating pin low, and this pin is being driven.
 - Every motor needs its flyback diode. Without it, voltage spikes can reset the Nano mid-flight.
-- Put a 10 µF and a 0.1 µF cap across each radio's power pins, as close to the module as possible. Put the 470 µF cap across the motor power bus, close to the MOSFETs: it absorbs the fast switching spikes. It can't hold the voltage up through battery sag; the boost converter is what keeps the Nano from browning out.
+- Put a 22 µF (10 µF or more) and a 0.1 µF cap across each radio's power pins, as close to the module as possible. Put the 220 µF cap across the motor power bus, close to the MOSFETs: it absorbs the fast switching spikes. It can't hold the voltage up through battery sag; the boost converter is what keeps the Nano from browning out.
 
 ## 5. Firmware safety features (build these in before props go on)
 

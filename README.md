@@ -1,6 +1,6 @@
 # Micro quadcopter with a custom Arduino flight controller
 
-I'm building a sub-100 g brushed quadcopter. I'm designing the frame in SolidWorks and 3D printing it, writing the flight control code myself for an Arduino Nano, and building the handheld radio transmitter from an Arduino Uno.
+I'm building a sub-100 g brushed quadcopter. I'm designing the frame in SolidWorks and 3D printing it, writing the flight control code myself for an Arduino Nano, and building the handheld radio transmitter from a second Nano.
 
 Status, Nov 2026: I'm ordering parts and starting the CAD. No hardware has been built or tested yet. The target for a first hover is January 2027.
 
@@ -16,7 +16,7 @@ Status, Nov 2026: I'm ordering parts and starting the CAD. No hardware has been 
 | Propulsion | 4× 8520 coreless brushed motors with 75 mm props, each driven by a logic-level MOSFET |
 | Power | 1S 600 mAh LiPo, with an MT3608 boost converter to 5 V for the logic |
 | Radio | nRF24L01+ 2.4 GHz link with a 250 ms failsafe |
-| Transmitter | Arduino Uno and two analog joysticks in a 3D-printed case |
+| Transmitter | A second Arduino Nano and two analog joysticks, on a breadboard at first and later in a 3D-printed case |
 | Frame | PETG frame, about 120 mm motor to motor on the diagonal, with prop guards, designed in SolidWorks |
 
 The target all-up weight is about 80 g, for a thrust-to-weight ratio of about 1.5-2:1. The sizing math (thrust-to-weight, battery sag, current, motor driver parts) is in [docs/design-calcs.md](docs/design-calcs.md). My current estimate is about 92 g, so weight is the main risk, and a thrust test on the real motors comes before the frame design.
