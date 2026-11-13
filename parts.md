@@ -52,14 +52,14 @@ Target doesn't sell PETG or spools, so the filament comes from here.
 
 | Status | Item | Qty | Est. | Link | Notes |
 |---|---|---|---|---|---|
-| ☐ | Bambu PETG Basic, 1.75 mm, 1 kg, "Filament with spool" | 1 | ~$19 | [us.store.bambulab.com/products/petg-basic](https://us.store.bambulab.com/products/petg-basic) | The project needs ~150 g. The Refill option ($13.99) has no spool, and a reusable spool costs $11.99. With-spool price not confirmed. Not PETG HF, which is discontinued. Free shipping only on filament orders over $59, so expect a shipping charge. |
+| ☐ | Bambu PETG Basic, 1.75 mm, 1 kg, "Filament with spool" | 1 | ~$19 | [us.store.bambulab.com/products/petg-basic](https://us.store.bambulab.com/products/petg-basic) | The final parts are ~150 g; with test prints and reprints, ~200-400 g (estimate). The Refill option ($13.99) has no spool, and a reusable spool costs $11.99. With-spool price not confirmed. Not PETG HF, which is discontinued. Free shipping only on filament orders over $59, so expect a shipping charge. |
 
 ## Harbor Freight, Urbana
 1508 N Cunningham Ave. Open Mon-Sat 8-8, Sun 9-6.
 
 | Status | Item | Qty | Est. | Notes |
 |---|---|---|---|---|
-| ☐ | Cen-Tech 7-function digital multimeter (item 59434) | 1 | ~$5 | Not in the totals: buy only if my dad's multimeter has no 10 A range. Price unconfirmed: Harbor Freight's own 2024 price comparison listed $5.00, and its site blocks price checks. Check the dial for a 10 A DC range (needed for the thrust test, #14; if there is none, buy the AstroAI instead) and a diode or continuity range. Keep 10 A readings short: cheap meters often have an unfused 10 A jack. Replaces the AstroAI AM33D ($18). |
+| ☐ | Cen-Tech 7-function digital multimeter (item 59434) | 1 | ~$5 | Not in the totals: buy only if my dad's multimeter has no 10 A range. Price unconfirmed: Harbor Freight's own 2024 price comparison listed $5.00, and its site blocks price checks. If I buy it, check its dial for a 10 A DC range (needed for the thrust test, #14; if there is none, buy the AstroAI instead) and a diode or continuity range. Keep 10 A readings short: cheap meters often have an unfused 10 A jack. Replaces the AstroAI AM33D ($18). |
 
 ## UIUC campus
 | Status | Item | Qty | Est. | Where | Notes |
@@ -86,12 +86,13 @@ Target doesn't sell PETG or spools, so the filament comes from here.
 ECE Supply is open Mon-Fri, 9-noon and 1-3:30. Stock numbers and prices come from its online catalog.
 
 ## Already own
-My own safety glasses, my dad's LiPo safe bag, plus the IOLab E&M small accessory pack. The pack's contents come from the Macmillan accessory page; check the bag before the ECE run.
+My own safety glasses, my dad's LiPo safe bag and multimeter, plus the IOLab E&M small accessory pack. The pack's contents come from the Macmillan accessory page; check the bag before the ECE run.
 
 | Item | Qty used | Job |
 |---|---|---|
 | Safety glasses | 1 | Every test with props on, and soldering. Check they're marked Z87 (ANSI Z87.1). Get a second pair if anyone will watch. |
 | LiPo safe bag (my dad's) | 1 | Charge and store the batteries in it, never unattended, on a non-flammable surface. Check for holes or torn seams before the first charge. |
+| Digital multimeter (my dad's) | 1 | MT3608 setup, shorts and continuity, MOSFET check, motor current in the thrust test (#14). Check the dial for a 10 A DC range, a 20 V DC range and a continuity beep, and put in a fresh battery. No 10 A range: buy the Harbor Freight Cen-Tech. |
 | 220 µF 25 V electrolytic cap | 1 (+1 spare) | Motor power bus, close to the MOSFETs. Replaces the 470 µF: a typical size for a micro brushed quad (estimate) and ~0.6 g lighter (estimate). If the Nano resets under motor load in the Nov 25 test, add the second in parallel. |
 | 22 µF 25 V electrolytic cap | 2 | One per radio, beside a 0.1 µF ceramic. Anything from 10 µF up works. |
 | 56 µF 25 V electrolytic cap | 1 | Reset-pin cap on the programmer Nano, only if a Nano needs Optiboot (#18). |
@@ -108,7 +109,7 @@ The pack has no jumper wires, ceramic caps, 220 Ω resistors, buzzer or buttons,
 |---|---|---|
 | ELEGOO Nano V3.0, 3-pack ([B0713XK923](https://www.amazon.com/dp/B0713XK923)) | $19 | Swapped for 3 AliExpress clones (~$4). Backup if the AliExpress order won't arrive by Nov 20. |
 | ELEGOO UNO R3 Super Starter Kit | $44 | The spare Nano runs the transmitter. The parts I needed from the kit come from ECE Supply (~$12) and the IOLab pack. |
-| AstroAI AM33D multimeter | $18 | Replaced by the Harbor Freight Cen-Tech (~$5). |
+| AstroAI AM33D multimeter | $18 | My dad's multimeter covers it; the Harbor Freight Cen-Tech (~$5) is the backup. |
 | MG Chemicals 836-P flux pen | $11 | Every joint is through-hole, and rosin-core solder already contains flux. Never use plumbing flux from a hardware store: it is acid flux and corrodes electronics. Buy a pen if I move to SOT-23 MOSFETs. |
 | MG Chemicals 425-NS desoldering wick | $6 | The station kit's solder sucker clears through-hole joints. ECE sells wick for $8.85 if I need it. |
 | QuadHands Classic helping hands | $30 | The soldering station kit already includes 2 helping hands. |

@@ -30,9 +30,83 @@ This file holds what the issues don't: decisions and the reasons for them, probl
 ## Next session
 - Paste the Amazon cart for a title check against the Sheet, then order (#1). In the cart, confirm the motor listing says (8) motors, the battery plug is JST-RCY, and each delivery date is before Nov 19 (or ship it home).
 - ECE Supply run Mon Nov 16 (#6): open Mon-Fri, 9-noon and 1-3:30. The list now includes 0.1 µF capacitors, plus the transmitter parts that neither the dropped starter kit nor my IOLab pack covers (breadboard, 220 Ω and 10 kΩ resistors, buzzer, buttons, one LED). Before going, check the IOLab bag against the list in `parts.md`. Check whether the $4.45 economy stripper handles 26 AWG, and whether the 1N5819 is back in stock.
-- Check my dad's multimeter for a 10 A DC range. If it has none, buy the Harbor Freight Cen-Tech (item 59434, ~$5, price unconfirmed).
+- Check my dad's multimeter: a 10 A DC range, a 20 V DC range, a continuity beep, and a fresh battery. If it has no 10 A range, buy the Harbor Freight Cen-Tech (item 59434, ~$5, price unconfirmed).
 - AliExpress Nanos: check the delivery date at checkout. If it's after Nov 20, buy the Amazon ELEGOO 3-pack instead.
 - Measure motor thrust as soon as the motors arrive (#14), recording the voltage across the motor, before the frame CAD.
+
+## Start to finish
+The order I work in and the check that lets me move to the next stage. Dates are in `TIMELINE.md`; this list is the order and the gates. If a gate fails, I fix it before starting the next stage, because each stage builds on the one before.
+
+These rules hold at every stage (details in `SAFETY.md`): safety glasses for soldering and any test with props on; USB and LiPo together only with props off; charge only in Dad's LiPo bag, on a non-flammable surface, never unattended; a new code feature is tested props off before props on.
+
+### 1. Parts in hand and tested (Nov 12-20)
+1. Check Dad's multimeter (10 A DC, 20 V DC, continuity). Buy the Cen-Tech only if there is no 10 A range.
+2. Order the AliExpress Nanos. If the delivery date is after Nov 20, order the Amazon ELEGOO 3-pack instead.
+3. Paste the Amazon cart for a title check, then order it (#1). Anything due after Nov 19 ships to my home address.
+4. Take the FAA TRUST test and save the certificate (#4).
+5. Draw the motor-mount coupon in SolidWorks (#5) and print it.
+6. Check the IOLab bag, then do the ECE Supply and JIS runs on Mon Nov 16 (#6).
+7. Go through the "Check at home" table in `parts.md` and buy anything missing.
+8. Soldering practice on the spare perfboard (#16), then the GY-521 header pins and MT3608 leads.
+9. Smoke test each part as it arrives (#7). The MT3608 gets set to 5.0 V before anything is connected to it.
+10. Thrust and current test on one motor (#14).
+11. Choose the motor hole size from the coupon and pack the kit.
+
+Gate: every part works, and the thrust numbers are in `docs/data/thrust-test.csv`. A dead part gets reordered right away, shipped to my home.
+
+### 2. Weight limit (Nov 21)
+1. Scale the bench thrust to flight voltage with section 2 of `docs/design-calcs.md`.
+2. Weight limit = 4 × in-flight thrust per motor / 1.5.
+3. From that limit, choose TO-220 or SOT-23 MOSFETs and set a gram limit for the frame plus guards.
+4. Log the decision in the Decisions table below.
+
+Gate: the lightest build in the weight budget fits under the limit. If it doesn't, I stop and rethink the motors or battery before any CAD.
+
+### 3. Every subsystem on the breadboard (Nov 21-27)
+1. IMU: calibrated gyro, complementary filter, smooth angle in the Serial Plotter (#9).
+2. Pin map (#15), then the radio link with the 250 ms failsafe and telemetry in the ack payload (#10).
+3. One motor driver from the joystick, props off, with the MOSFET check (#11).
+4. Board layout on paper with its outer dimensions (#17).
+
+Gate: each "Done when" in `TIMELINE.md` passes, and the Nano doesn't reset under motor load. Tag `v0.1-breadboard`.
+
+### 4. Frame designed and parts weighed (Nov 28-29)
+1. Frame CAD around the board outline, battery tray, rig attachment points (#12).
+2. Weigh every real part and fill in the Measured column (#13).
+
+Gate: CAD mass plus measured parts is under the weight limit (the Nov 29 checkpoint in `TIMELINE.md`).
+
+### 5. Everything printed (Nov 30 to Dec 10)
+1. Prop guards and a full SolidWorks assembly; check fit and that nothing reaches the prop plane.
+2. Print the frame variants, guards plus spares, and the test rig. Submit early enough for one reprint.
+3. Last JIS run: rig pivot hardware, spare screws.
+
+Gate: every printed part is in hand and fits the real motors, board and battery before I leave campus.
+
+### 6. Build and safety firmware (Dec 19-27)
+1. Solder the flight board from the layout. Check continuity and shorts with the multimeter before the first power-up.
+2. Mount it on the frame and weigh the whole quad.
+3. Stage 0: all eight firmware safety features in `SAFETY.md` section 5, on USB, no battery (#18).
+4. Stage 1: motor order, spin direction and mixing, props off. Ten battery plug-ins with no twitch.
+
+Gate: Stage 0 and Stage 1 both pass. I review the safety code line by line and can explain each feature before props go on.
+
+### 7. Rate loop on the rig (Dec 28 to Jan 3)
+1. Fixed loop rate, measured.
+2. Rate PID on roll, then pitch, tuned from radio telemetry plots; recheck near hover throttle.
+3. Angle loop on top.
+
+Gate, Jan 3: the rig holds steady. If not, switch to the fallback chosen in #19 and get that flying first.
+
+### 8. First hovers (Jan 4-10)
+1. Tethered hover, guards on.
+2. Low untethered hovers over carpet; tune yaw.
+3. Set the low-battery limits from measured sag.
+
+Gate: a stable untethered hover on my own firmware. Tag `v1.0-first-hover`.
+
+### 9. Write-up (Jan 11-17)
+README with photos, CAD renders, the wiring diagram, measured data and a short video. Close the remaining issues and milestones. This week is also the buffer for anything that ran late.
 
 ## Decisions
 | Date | Decision | Why |
@@ -58,6 +132,7 @@ This file holds what the issues don't: decisions and the reasons for them, probl
 | Nov 12 | My own 3D printer is at school, so I print there before Thanksgiving and between Nov 30 and finals | No printer at home means no reprints over either break unless I take the printer home. The frame v0 printed before Nov 21 is practice; the real frame is printed before I leave in December. |
 | Nov 12 | Nanos from AliExpress (3 clones, ~$4) instead of the Amazon ELEGOO 3-pack ($19); this reverses the Nanos part of the "Kept on Amazon" row | About $15 cheaper. The Amazon pack stays in the Sheet's Skipped section as the backup if the AliExpress delivery date is after Nov 20. |
 | Nov 12 | Optional printer: Bambu A1 mini from Target, PETG Basic (with spool) from the Bambu store | Target doesn't sell PETG or spools. 1 kg covers the whole project (~200-400 g, estimate). Every part is designed to print without supports, so no support filament. |
+| Nov 12 | My dad's multimeter first; the Harbor Freight Cen-Tech only if it has no 10 A range | No purchase if his meter can read motor current. The 10 A range is what the thrust test needs. |
 | Nov 12 | My dad's LiPo safe bag replaces the Zeee bag | One is already at home. Check it for holes or torn seams before the first charge. |
 | Nov 12 | Low-battery limits: warn at ~3.5 V, land at ~3.3 V under load, to be checked against measured sag | A single 3.5 V "land" limit would probably trip in the first minute, because four motors pull the voltage down 0.3-0.6 V (estimate). |
 
