@@ -1,6 +1,6 @@
 # Micro quadcopter with a custom Arduino flight controller
 
-I'm building a sub-100 g brushed quadcopter. I'm designing the frame in SolidWorks and 3D printing it, writing the flight control code myself for an Arduino Nano, and building the handheld radio transmitter from a second Nano.
+I'm building a micro brushed quadcopter, targeting about 80 g. I'm designing the frame in SolidWorks and 3D printing it, writing the flight control code myself for an Arduino Nano, and building the handheld radio transmitter from a second Nano.
 
 Status, Nov 2026: I'm ordering parts and starting the CAD. No hardware has been built or tested yet. The target for a first hover is January 2027.
 
